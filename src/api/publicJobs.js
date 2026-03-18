@@ -1,12 +1,12 @@
-const API_BASE = import.meta.env.VITE_API_BASE || '/api/v1';
+import { API_DIRECT } from './config';
 
 /**
  * GET /public/jobs/{id}
  * Lấy thông tin job public (JD) - chỉ job PUBLISHED
- * Dùng fetch + credentials:'omit' để không gửi cookie (JSESSIONID)
+ * Gọi thẳng backend (API_DIRECT), credentials:'omit' để không gửi cookie
  */
 export async function getPublicJob(jobId) {
-  const res = await fetch(`${API_BASE}/public/jobs/${jobId}`, {
+  const res = await fetch(`${API_DIRECT}/public/jobs/${jobId}`, {
     credentials: 'omit',
   });
   const data = await res.json();

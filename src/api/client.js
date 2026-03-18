@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore';
+import { API_BASE } from './config';
 
-const API_BASE = import.meta.env.VITE_API_BASE || '/api/v1';
 const REFRESH_PATH = '/auth/refresh';
 
 export const apiClient = axios.create({

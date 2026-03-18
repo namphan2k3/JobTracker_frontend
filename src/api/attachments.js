@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { API_DIRECT } from './config';
 
 /**
  * GET /applications/{applicationId}/attachments
@@ -30,6 +31,7 @@ export async function uploadAttachment(applicationId, formData) {
 /**
  * GET /attachments/{id}/download-url
  * Backend trả signed URL → window.open để tải file, tránh CORS.
+ * Gọi thẳng backend (API_DIRECT) để tránh proxy issues.
  */
 export async function downloadAttachment(attachmentId) {
   const res = await apiClient.get(`/attachments/${attachmentId}/download-url`);

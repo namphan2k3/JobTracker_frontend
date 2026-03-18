@@ -1,11 +1,11 @@
-const API_BASE = import.meta.env.VITE_API_BASE || '/api/v1';
+import { API_DIRECT } from './config';
 
 /**
- * Public fetch helper — dùng credentials: 'omit' để KHÔNG gửi cookie (JSESSIONID)
- * Đây là cách duy nhất chặn cookie trên same-origin request.
+ * Public fetch helper — gọi thẳng backend (API_DIRECT), credentials: 'omit'
+ * để không gửi cookie/token. Tránh CORS & proxy issues.
  */
 async function publicFetch(path, options = {}) {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(`${API_DIRECT}${path}`, {
     credentials: 'omit',
     ...options,
   });
