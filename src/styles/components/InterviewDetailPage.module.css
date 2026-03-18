@@ -1,0 +1,203 @@
+.interviewDetailPage {
+  padding: var(--spacing-lg);
+}
+
+.interviewDetailPage__header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.interviewDetailPage__backLink {
+  display: inline-block;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.interviewDetailPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.interviewDetailPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text);
+}
+
+.interviewDetailPage__loading {
+  padding: var(--spacing-lg);
+  color: var(--color-text-muted);
+}
+
+.interviewDetailPage__error {
+  padding: var(--spacing-md);
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.interviewDetailPage__success {
+  padding: var(--spacing-md);
+  background: var(--color-success-muted, #ecfdf5);
+  color: var(--color-success, #059669);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.interviewDetailPage__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 56rem;
+}
+
+.interviewDetailPage__section {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.interviewDetailPage__section h2 {
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--spacing-md);
+  color: var(--color-text);
+}
+
+.interviewDetailPage__section dl {
+  margin: 0;
+}
+
+.interviewDetailPage__section dt {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-sm);
+}
+
+.interviewDetailPage__section dd {
+  margin: 0;
+}
+
+.interviewDetailPage__section dd a {
+  color: var(--color-primary);
+}
+
+.interviewDetailPage__statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--status-color, #6b7280) 20%, transparent);
+  color: var(--status-color, #6b7280);
+  font-size: var(--font-size-sm);
+}
+
+.interviewDetailPage__interviewerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.interviewDetailPage__interviewerList li {
+  padding: var(--spacing-xs) 0;
+}
+
+.interviewDetailPage__primaryBadge {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  margin-left: var(--spacing-xs);
+  background: var(--color-primary-muted, #e0e7ff);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.interviewDetailPage__footer {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.interviewDetailPage__footer button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.interviewDetailPage__cancelBtn {
+  background: transparent !important;
+  color: var(--color-warning, #f59e0b) !important;
+  border: 1px solid var(--color-warning, #f59e0b) !important;
+}
+
+.interviewDetailPage__deleteBtn {
+  background: transparent !important;
+  color: var(--color-error) !important;
+  border: 1px solid var(--color-error) !important;
+}
+
+.interviewDetailPage__editForm label {
+  display: block;
+  margin-top: var(--spacing-md);
+}
+
+.interviewDetailPage__editForm input,
+.interviewDetailPage__editForm select,
+.interviewDetailPage__editForm textarea {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-xs);
+}
+
+.interviewDetailPage__interviewerCheckboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.interviewDetailPage__checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.interviewDetailPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.interviewDetailPage__formActions button[type='submit'],
+.interviewDetailPage__formActions button[type='button'] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.interviewDetailPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.interviewDetailPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.interviewDetailPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.interviewDetailPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

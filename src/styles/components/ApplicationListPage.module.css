@@ -1,0 +1,504 @@
+.applicationListPage {
+  padding: var(--spacing-lg);
+}
+
+.applicationListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.applicationListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text);
+}
+
+.applicationListPage__headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.applicationListPage__createLink {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.applicationListPage__createLink:hover {
+  background: var(--color-primary-hover);
+}
+
+.applicationListPage__viewToggle {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.applicationListPage__viewToggleBtn,
+.applicationListPage__viewToggleBtnActive {
+  padding: 4px 10px;
+  font-size: var(--font-size-xs);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.applicationListPage__viewToggleBtnActive {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.applicationListPage__filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.applicationListPage__searchInput {
+  flex: 1;
+  min-width: 180px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.applicationListPage__filterSelect {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-width: 140px;
+}
+
+.applicationListPage__searchButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.applicationListPage__error {
+  padding: var(--spacing-md);
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.applicationListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.applicationListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.applicationListPage__table th,
+.applicationListPage__table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.applicationListPage__table th {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__email {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__jobLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.applicationListPage__jobLink:hover {
+  text-decoration: underline;
+}
+
+.applicationListPage__statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--status-color, #6b7280) 20%, transparent);
+  color: var(--status-color, #6b7280);
+  font-size: var(--font-size-sm);
+}
+
+.applicationListPage__cvLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.applicationListPage__cvLink:hover {
+  text-decoration: underline;
+}
+
+.applicationListPage__detailLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.applicationListPage__detailLink:hover {
+  text-decoration: underline;
+}
+
+.applicationListPage__quickStatusButton {
+  margin-left: var(--spacing-xs);
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.applicationListPage__quickStatusButton:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.applicationListPage__quickStatusButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.applicationListPage__quickStatusButtonDanger {
+  margin-left: var(--spacing-xs);
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-error);
+  background: var(--color-bg);
+  color: var(--color-error);
+  cursor: pointer;
+}
+
+.applicationListPage__quickStatusButtonDanger:hover:not(:disabled) {
+  background: var(--color-error-muted);
+}
+
+.applicationListPage__quickStatusButtonDanger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.applicationListPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.applicationListPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.applicationListPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.applicationListPage__bulkBar {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted, #f9fafb);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.applicationListPage__bulkActions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.applicationListPage__pipelineWrap {
+  display: flex;
+  gap: var(--spacing-md);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-md);
+}
+
+.applicationListPage__pipelineColumn {
+  min-width: 220px;
+  max-width: 260px;
+  background: var(--color-bg-muted, #f9fafb);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.applicationListPage__pipelineColumnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.applicationListPage__pipelineColumnTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+}
+
+.applicationListPage__pipelineColumnCount {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__pipelineColumnBody {
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.applicationListPage__pipelineCard {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  cursor: grab;
+}
+
+.applicationListPage__pipelineCardMain {
+  margin-bottom: var(--spacing-xs);
+}
+
+.applicationListPage__pipelineCandidate {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.applicationListPage__pipelineJob {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__pipelineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__pipelineActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.applicationListPage__pipelineEmpty {
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.applicationListPage__modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.applicationListPage__modal {
+  background: var(--color-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.25);
+}
+
+.applicationListPage__modalTitle {
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-lg);
+}
+
+.applicationListPage__modalSubtitle {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__modalList {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-muted, #f9fafb);
+}
+
+.applicationListPage__modalListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  padding: 2px 0;
+  font-size: var(--font-size-sm);
+}
+
+.applicationListPage__modalListJob {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__modalLabel {
+  font-size: var(--font-size-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.applicationListPage__modalTextarea {
+  display: block;
+  width: 100%;
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  resize: vertical;
+}
+
+.applicationListPage__modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.applicationListPage__modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.applicationListPage__modalInterviewerList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.applicationListPage__checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.applicationListPage__checkboxLabel input {
+  width: auto;
+  display: inline-block;
+  margin: 0;
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButton,
+.applicationListPage__modalActions .applicationListPage__quickStatusButtonDanger {
+  border-width: 1px;
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButton:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButtonDanger:hover:not(:disabled) {
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.applicationListPage__modalHint {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__templatePills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-xs) 0 var(--spacing-sm);
+}
+
+.applicationListPage__templatePill,
+.applicationListPage__templatePillActive {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-xs);
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  text-align: left;
+}
+
+.applicationListPage__templatePillActive {
+  border-color: var(--color-primary);
+  background: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.applicationListPage__templatePillCode {
+  font-family: var(--font-family-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
+  font-size: var(--font-size-2xs, 11px);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-muted);
+}
+
+.applicationListPage__templatePillLabel {
+  opacity: 0.9;
+}
+
+.applicationListPage__templatePill input[type='radio'],
+.applicationListPage__templatePillActive input[type='radio'] {
+  margin: 0;
+  flex-shrink: 0;
+  transform: translateY(1px);
+}

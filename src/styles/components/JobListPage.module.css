@@ -1,0 +1,155 @@
+.jobListPage {
+  padding: var(--spacing-lg);
+}
+
+.jobListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.jobListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text);
+}
+
+.jobListPage__createLink {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.jobListPage__createLink:hover {
+  background: var(--color-primary-hover);
+}
+
+.jobListPage__filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.jobListPage__searchInput {
+  flex: 1;
+  min-width: 180px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.jobListPage__filterSelect {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-width: 140px;
+}
+
+.jobListPage__searchButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.jobListPage__error {
+  padding: var(--spacing-md);
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.jobListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.jobListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.jobListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.jobListPage__table th,
+.jobListPage__table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.jobListPage__table th {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.jobListPage__tableRowDraft {
+  opacity: 0.8;
+}
+
+.jobListPage__statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.jobListPage__statusBadge[data-status="DRAFT"] {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.jobListPage__statusBadge[data-status="PUBLISHED"] {
+  background: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.jobListPage__statusBadge[data-status="PAUSED"] {
+  background: var(--color-warning);
+  color: var(--color-text-inverse);
+}
+
+.jobListPage__statusBadge[data-status="CLOSED"],
+.jobListPage__statusBadge[data-status="FILLED"] {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.jobListPage__detailLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.jobListPage__detailLink:hover {
+  text-decoration: underline;
+}
+
+.jobListPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.jobListPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.jobListPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

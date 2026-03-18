@@ -1,0 +1,98 @@
+.publicApplyPage {
+  max-width: var(--form-card-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-md) 0;
+}
+
+.publicApplyPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.publicApplyPage__subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.publicApplyPage__error {
+  padding: var(--spacing-md);
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.publicApplyPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.publicApplyPage__form label {
+  display: block;
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.publicApplyPage__form label input,
+.publicApplyPage__form label textarea {
+  display: block;
+  width: 100%;
+  margin-top: var(--spacing-xs);
+}
+
+.publicApplyPage__form input,
+.publicApplyPage__form textarea {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.publicApplyPage__required {
+  color: var(--color-error);
+}
+
+.publicApplyPage__form button {
+  padding: var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+}
+
+.publicApplyPage__form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.publicApplyPage__success {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.publicApplyPage__success h1 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-success);
+  margin-bottom: var(--spacing-md);
+}
+
+.publicApplyPage__homeLink {
+  display: inline-block;
+  margin-top: var(--spacing-lg);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.publicApplyPage__homeLink:hover {
+  text-decoration: underline;
+}

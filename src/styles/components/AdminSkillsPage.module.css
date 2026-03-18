@@ -1,0 +1,287 @@
+.adminSkillsPage {
+}
+
+.adminSkillsPage__required {
+  color: var(--color-error);
+}
+
+.adminSkillsPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.adminSkillsPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminSkillsPage__createButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.adminSkillsPage__createButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.adminSkillsPage__searchForm {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.adminSkillsPage__searchInput {
+  flex: 1;
+  min-width: 12rem;
+  max-width: 16rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+}
+
+.adminSkillsPage__searchInput:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.adminSkillsPage__categorySelect {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  min-width: 10rem;
+}
+
+.adminSkillsPage__categorySelect:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.adminSkillsPage__searchButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.adminSkillsPage__searchButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.adminSkillsPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminSkillsPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminSkillsPage__tableWrap {
+  overflow-x: auto;
+}
+
+.adminSkillsPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminSkillsPage__table th,
+.adminSkillsPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminSkillsPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.adminSkillsPage__descCell {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminSkillsPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.adminSkillsPage__tableRowInactive td {
+  color: var(--color-text-muted);
+}
+
+.adminSkillsPage__actionLink,
+.adminSkillsPage__actionLinkDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: var(--spacing-xs);
+}
+
+.adminSkillsPage__actionLink {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminSkillsPage__actionLink:hover {
+  border-color: var(--color-primary);
+}
+
+.adminSkillsPage__actionLinkDanger {
+  color: var(--color-error);
+  border-color: var(--color-error);
+  background: transparent;
+}
+
+.adminSkillsPage__actionLinkDanger:hover {
+  background: var(--color-error-muted);
+}
+
+.adminSkillsPage__confirmText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.adminSkillsPage__confirmYes,
+.adminSkillsPage__confirmNo {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.adminSkillsPage__confirmYes {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.adminSkillsPage__confirmYes:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.adminSkillsPage__confirmNo {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+}
+
+.adminSkillsPage__confirmNo:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminSkillsPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminSkillsPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.adminSkillsPage__pagination button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminSkillsPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.adminSkillsPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.adminSkillsPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminSkillsPage__formActions button[type='submit'],
+.adminSkillsPage__formActions button[type='button'] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.adminSkillsPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.adminSkillsPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.adminSkillsPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminSkillsPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminSkillsPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminSkillsPage__checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.adminSkillsPage__checkboxLabel input {
+  width: auto;
+}
+
+.adminSkillsPage__readOnlyHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,251 @@
+.roleListPage {
+}
+
+.roleListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.roleListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.roleListPage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.roleListPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.roleListPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.roleListPage__createButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.roleListPage__createButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.roleListPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.roleListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.roleListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.roleListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.roleListPage__table th,
+.roleListPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.roleListPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.roleListPage__descCell {
+  max-width: 20rem;
+}
+
+.roleListPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.roleListPage__tableRowInactive td {
+  color: var(--color-text-muted);
+}
+
+.roleListPage__actionLink,
+.roleListPage__actionLinkDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: var(--spacing-xs);
+}
+
+.roleListPage__actionLink {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg);
+}
+
+.roleListPage__actionLink:hover {
+  border-color: var(--color-primary);
+}
+
+.roleListPage__actionLinkDanger {
+  background: transparent;
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.roleListPage__actionLinkDanger:hover {
+  background: var(--color-error-muted);
+}
+
+.roleListPage__confirmText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.roleListPage__confirmYes,
+.roleListPage__confirmNo {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.roleListPage__confirmYes {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.roleListPage__confirmYes:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.roleListPage__confirmNo {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+}
+
+.roleListPage__confirmNo:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.roleListPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.roleListPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.roleListPage__formActions button[type='submit'],
+.roleListPage__formActions button[type='button'] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.roleListPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.roleListPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.roleListPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.roleListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.roleListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.roleListPage__checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.roleListPage__checkboxLabel input {
+  width: auto;
+}
+
+.roleListPage__permsList {
+  max-height: 20rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.roleListPage__permItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.roleListPage__permItem input {
+  width: auto;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.roleListPage__permDesc {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.roleListPage__emptyPerms {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}

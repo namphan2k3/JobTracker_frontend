@@ -1,0 +1,169 @@
+.jobCreatePage__error {
+  padding: var(--spacing-md);
+  background: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.jobCreatePage__required {
+  color: var(--color-error);
+}
+
+.jobCreatePage__skillCheckboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.jobCreatePage__skillSearchRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.jobCreatePage__skillSearchInput {
+  flex: 1;
+  min-width: 12rem;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.jobCreatePage__skillSearchEmpty {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.jobCreatePage__selectedSkills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.jobCreatePage__selectedSkillsEmpty {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.jobCreatePage__selectedSkillRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted, #f9fafb);
+}
+
+.jobCreatePage__selectedSkillName {
+  font-weight: var(--font-weight-medium);
+  min-width: 0;
+}
+
+.jobCreatePage__selectedSkillOption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.jobCreatePage__selectedSkillOption input {
+  width: auto;
+}
+
+.jobCreatePage__selectedSkillLevel {
+  padding: 2px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.jobCreatePage__selectedSkillTagRemove {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.1em;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.jobCreatePage__selectedSkillTagRemove:hover {
+  color: var(--color-error);
+}
+
+.jobCreatePage__skillSearchSection {
+  margin-top: var(--spacing-sm);
+}
+
+.jobCreatePage__skillSuggestionBox {
+  margin-top: var(--spacing-xs);
+}
+
+.jobCreatePage__skillSuggestionItem {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+
+.jobCreatePage__skillCheckbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+}
+
+.jobCreatePage__checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.jobCreatePage__checkboxLabel input {
+  width: auto;
+}
+
+.jobCreatePage__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.jobCreatePage__actions button[type='submit'],
+.jobCreatePage__actions button[type='button'] {
+  padding: 0 var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  height: 40px;
+  display: inline-block;
+}
+
+.jobCreatePage__actions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: 1px solid transparent;
+}
+
+.jobCreatePage__actions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.jobCreatePage__actions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.jobCreatePage__actions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

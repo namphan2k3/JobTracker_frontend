@@ -1,0 +1,112 @@
+.adminPaymentHistoryPage {
+  max-width: 56rem;
+}
+
+.adminPaymentHistoryPage__header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.adminPaymentHistoryPage__backLinks {
+  margin-bottom: var(--spacing-md);
+}
+
+.adminPaymentHistoryPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+}
+
+.adminPaymentHistoryPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.adminPaymentHistoryPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminPaymentHistoryPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminPaymentHistoryPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminPaymentHistoryPage__tableWrap {
+  overflow-x: auto;
+}
+
+.adminPaymentHistoryPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminPaymentHistoryPage__table th,
+.adminPaymentHistoryPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminPaymentHistoryPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.adminPaymentHistoryPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.adminPaymentHistoryPage__status {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.adminPaymentHistoryPage__status__INIT {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.adminPaymentHistoryPage__status__SUCCESS {
+  background: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.adminPaymentHistoryPage__status__FAILED {
+  background: var(--color-error-muted);
+  color: var(--color-error);
+}
+
+.adminPaymentHistoryPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminPaymentHistoryPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.adminPaymentHistoryPage__pagination button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminPaymentHistoryPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

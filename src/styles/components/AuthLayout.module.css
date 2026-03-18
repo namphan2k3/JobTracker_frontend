@@ -1,0 +1,30 @@
+.authLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.authLayout__header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.authLayout__brand {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.authLayout__brand:hover {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.authLayout__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}

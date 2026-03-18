@@ -1,0 +1,264 @@
+.adminApplicationStatusListPage {
+}
+
+.adminApplicationStatusListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.adminApplicationStatusListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminApplicationStatusListPage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.adminApplicationStatusListPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.adminApplicationStatusListPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.adminApplicationStatusListPage__createButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.adminApplicationStatusListPage__createButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.adminApplicationStatusListPage__required {
+  color: var(--color-error);
+}
+
+.adminApplicationStatusListPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminApplicationStatusListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminApplicationStatusListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.adminApplicationStatusListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminApplicationStatusListPage__table th,
+.adminApplicationStatusListPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminApplicationStatusListPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.adminApplicationStatusListPage__descCell {
+  max-width: 14rem;
+}
+
+.adminApplicationStatusListPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.adminApplicationStatusListPage__tableRowInactive td {
+  color: var(--color-text-muted);
+}
+
+.adminApplicationStatusListPage__colorBadge {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-sm);
+  vertical-align: middle;
+}
+
+.adminApplicationStatusListPage__actionLink,
+.adminApplicationStatusListPage__actionLinkDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: var(--spacing-xs);
+}
+
+.adminApplicationStatusListPage__actionLink {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminApplicationStatusListPage__actionLink:hover {
+  border-color: var(--color-primary);
+}
+
+.adminApplicationStatusListPage__actionLinkDanger {
+  background: transparent;
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.adminApplicationStatusListPage__actionLinkDanger:hover {
+  background: var(--color-error-muted);
+}
+
+.adminApplicationStatusListPage__confirmText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.adminApplicationStatusListPage__confirmYes,
+.adminApplicationStatusListPage__confirmNo {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.adminApplicationStatusListPage__confirmYes {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.adminApplicationStatusListPage__confirmYes:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.adminApplicationStatusListPage__confirmNo {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+}
+
+.adminApplicationStatusListPage__confirmNo:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminApplicationStatusListPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.adminApplicationStatusListPage__colorPicker {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.adminApplicationStatusListPage__colorOption {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  padding: 0;
+}
+
+.adminApplicationStatusListPage__colorOption:hover {
+  border-color: var(--color-primary);
+}
+
+.adminApplicationStatusListPage__colorInput {
+  width: 2.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.adminApplicationStatusListPage__formActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminApplicationStatusListPage__formActions button[type='submit'],
+.adminApplicationStatusListPage__formActions button[type='button'] {
+  padding: 0 var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  height: 40px;
+  display: inline-block;
+}
+
+.adminApplicationStatusListPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: 1px solid transparent;
+}
+
+.adminApplicationStatusListPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.adminApplicationStatusListPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminApplicationStatusListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminApplicationStatusListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminApplicationStatusListPage__checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.adminApplicationStatusListPage__checkboxLabel input {
+  width: auto;
+}

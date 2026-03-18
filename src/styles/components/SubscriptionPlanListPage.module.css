@@ -1,0 +1,219 @@
+.subscriptionPlanListPage {
+}
+
+.subscriptionPlanListPage__required {
+  color: var(--color-error);
+}
+
+.subscriptionPlanListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.subscriptionPlanListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.subscriptionPlanListPage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.subscriptionPlanListPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.subscriptionPlanListPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.subscriptionPlanListPage__createButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.subscriptionPlanListPage__createButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.subscriptionPlanListPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.subscriptionPlanListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.subscriptionPlanListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.subscriptionPlanListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subscriptionPlanListPage__table th,
+.subscriptionPlanListPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.subscriptionPlanListPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.subscriptionPlanListPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.subscriptionPlanListPage__rowInactive td {
+  color: var(--color-text-muted);
+}
+
+.subscriptionPlanListPage__actionLink,
+.subscriptionPlanListPage__actionLinkDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: var(--spacing-xs);
+}
+
+.subscriptionPlanListPage__actionLink {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg);
+}
+
+.subscriptionPlanListPage__actionLink:hover {
+  border-color: var(--color-primary);
+}
+
+.subscriptionPlanListPage__actionLinkDanger {
+  background: transparent;
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.subscriptionPlanListPage__actionLinkDanger:hover {
+  background: var(--color-error-muted);
+}
+
+.subscriptionPlanListPage__confirmText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.subscriptionPlanListPage__confirmYes,
+.subscriptionPlanListPage__confirmNo {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.subscriptionPlanListPage__confirmYes {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.subscriptionPlanListPage__confirmYes:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.subscriptionPlanListPage__confirmNo {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+}
+
+.subscriptionPlanListPage__confirmNo:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.subscriptionPlanListPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.subscriptionPlanListPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.subscriptionPlanListPage__formActions button[type='submit'],
+.subscriptionPlanListPage__formActions button[type='button'] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.subscriptionPlanListPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.subscriptionPlanListPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.subscriptionPlanListPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.subscriptionPlanListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.subscriptionPlanListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.subscriptionPlanListPage__checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.subscriptionPlanListPage__checkboxLabel input {
+  width: auto;
+}

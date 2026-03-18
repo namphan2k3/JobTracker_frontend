@@ -1,0 +1,185 @@
+.dashboardPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
+}
+
+.dashboardPage__loading {
+  color: var(--color-text-muted);
+}
+
+.dashboardPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+}
+
+.dashboardSummary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.dashboardSummary__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.dashboardSummary__activeJobsCard,
+.dashboardSummary__applicationsTodayCard,
+.dashboardSummary__applicationsTodayCardHighlight {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.dashboardSummary__activeJobsCard {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dashboardSummary__activeJobsCard:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dashboardSummary__applicationsTodayCardHighlight {
+  border-color: var(--color-primary-muted);
+  background-color: var(--color-primary-muted);
+}
+
+.dashboardSummary__cardLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.dashboardSummary__cardValue {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.dashboardSummary__cardChange {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.dashboardSummary__pipelineSection {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-elevated);
+}
+
+.dashboardSummary__pipelineTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.dashboardSummary__pipelineChart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.dashboardSummary__pipelineItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dashboardSummary__pipelineItem:last-child {
+  border-bottom: none;
+}
+
+.dashboardSummary__pipelineLabel {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.dashboardSummary__pipelineCount {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.dashboardSummary__pipelineEmpty {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.dashboardSummary__interviewsSection {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-elevated);
+}
+
+.dashboardSummary__interviewsTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.dashboardSummary__interviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.dashboardSummary__interviewRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+}
+
+.dashboardSummary__interviewRow:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-muted);
+}
+
+.dashboardSummary__interviewMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.dashboardSummary__interviewCandidate {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.dashboardSummary__interviewJob {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.dashboardSummary__interviewMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.dashboardSummary__interviewsEmpty {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}

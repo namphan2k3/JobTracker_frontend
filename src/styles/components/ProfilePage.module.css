@@ -1,0 +1,173 @@
+.profilePage {
+  /* full width */
+}
+
+.profilePage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
+}
+
+.profilePage__card {
+  padding: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.profilePage__card p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.profilePage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.profilePage__editButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.profilePage__editButton:hover {
+  background: var(--color-primary-hover);
+}
+
+.profilePage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.profilePage__formActions button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.profilePage__formActions button:last-of-type {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.profilePage__formActions button:last-of-type:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.profilePage__sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.profilePage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.profilePage__avatarSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.profilePage__avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--color-bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.profilePage__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profilePage__avatarLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.profilePage__avatarInput {
+  display: none;
+}
+
+.profilePage__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.profilePage__input {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+}
+
+.profilePage__input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.profilePage__input:disabled {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.profilePage__submitButton {
+  padding: var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-sm);
+}
+
+.profilePage__submitButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.profilePage__submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.profilePage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+}
+
+.profilePage__success {
+  padding: var(--spacing-md);
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+}
+
+.profilePage__loading {
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,112 @@
+.adminSubscriptionHistoryPage {
+}
+
+.adminSubscriptionHistoryPage__header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.adminSubscriptionHistoryPage__backLinks {
+  margin-bottom: var(--spacing-md);
+}
+
+.adminSubscriptionHistoryPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+}
+
+.adminSubscriptionHistoryPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.adminSubscriptionHistoryPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminSubscriptionHistoryPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminSubscriptionHistoryPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminSubscriptionHistoryPage__tableWrap {
+  overflow-x: auto;
+}
+
+.adminSubscriptionHistoryPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminSubscriptionHistoryPage__table th,
+.adminSubscriptionHistoryPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminSubscriptionHistoryPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.adminSubscriptionHistoryPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.adminSubscriptionHistoryPage__status {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.adminSubscriptionHistoryPage__status__ACTIVE {
+  background: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.adminSubscriptionHistoryPage__status__PENDING {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.adminSubscriptionHistoryPage__status__EXPIRED,
+.adminSubscriptionHistoryPage__status__CANCELLED {
+  background: var(--color-error-muted);
+  color: var(--color-error);
+}
+
+.adminSubscriptionHistoryPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminSubscriptionHistoryPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.adminSubscriptionHistoryPage__pagination button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminSubscriptionHistoryPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

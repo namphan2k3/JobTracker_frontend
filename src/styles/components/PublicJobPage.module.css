@@ -1,0 +1,36 @@
+.publicJobPage {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.publicJobPage__loading {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-muted);
+}
+
+.publicJobPage__error {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.publicJobPage__error h1 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.publicJobPage__error p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+}
+
+.publicJobPage__homeLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.publicJobPage__homeLink:hover {
+  text-decoration: underline;
+}

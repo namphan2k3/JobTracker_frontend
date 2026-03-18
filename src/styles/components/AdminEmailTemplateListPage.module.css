@@ -1,0 +1,54 @@
+.adminEmailTemplateListPage { }
+.adminEmailTemplateListPage__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); flex-wrap: wrap; gap: var(--spacing-md); }
+.adminEmailTemplateListPage__title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-text); }
+.adminEmailTemplateListPage__actions { display: flex; gap: var(--spacing-md); }
+.adminEmailTemplateListPage__backLink { font-size: var(--font-size-sm); color: var(--color-primary); text-decoration: none; }
+.adminEmailTemplateListPage__backLink:hover { text-decoration: underline; }
+.adminEmailTemplateListPage__createButton { padding: var(--spacing-sm) var(--spacing-md); background: var(--color-primary); color: var(--color-text-inverse); font-weight: var(--font-weight-medium); border-radius: var(--radius-md); text-decoration: none; }
+.adminEmailTemplateListPage__createButton:hover { background: var(--color-primary-hover); }
+.adminEmailTemplateListPage__error { padding: var(--spacing-md); background: var(--color-error-muted); color: var(--color-error); margin-bottom: var(--spacing-lg); border-radius: var(--radius-md); }
+.adminEmailTemplateListPage__loading { color: var(--color-text-muted); }
+.adminEmailTemplateListPage__tableWrap { overflow-x: auto; }
+.adminEmailTemplateListPage__table { width: 100%; border-collapse: collapse; }
+.adminEmailTemplateListPage__table th, .adminEmailTemplateListPage__table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
+.adminEmailTemplateListPage__table th { font-weight: var(--font-weight-medium); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.adminEmailTemplateListPage__subjectCell { max-width: 16rem; }
+.adminEmailTemplateListPage__emptyCell { text-align: center; color: var(--color-text-muted); padding: var(--spacing-xl); }
+.adminEmailTemplateListPage__tableRowInactive td { color: var(--color-text-muted); }
+.adminEmailTemplateListPage__actionLink,
+.adminEmailTemplateListPage__actionLinkDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: var(--spacing-xs);
+}
+
+.adminEmailTemplateListPage__actionLink {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminEmailTemplateListPage__actionLink:hover {
+  border-color: var(--color-primary);
+}
+
+.adminEmailTemplateListPage__actionLinkDanger {
+  background: transparent;
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.adminEmailTemplateListPage__actionLinkDanger:hover {
+  background: var(--color-error-muted);
+}
+.adminEmailTemplateListPage__confirmText { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-right: var(--spacing-sm); }
+.adminEmailTemplateListPage__confirmYes, .adminEmailTemplateListPage__confirmNo { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-sm); border-radius: var(--radius-md); cursor: pointer; margin-right: var(--spacing-xs); }
+.adminEmailTemplateListPage__confirmYes { background: var(--color-error); color: var(--color-text-inverse); border: none; }
+.adminEmailTemplateListPage__confirmNo { background: var(--color-bg-muted); border: 1px solid var(--color-border); }

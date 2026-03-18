@@ -1,0 +1,121 @@
+.authForm {
+  width: 100%;
+  max-width: var(--form-max-width);
+  margin: 0 auto;
+}
+
+.authForm__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
+}
+
+.authForm__message {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xl);
+  line-height: var(--line-height-relaxed);
+}
+
+.authForm__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.authForm__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.authForm__input {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+}
+
+.authForm__input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.authForm__submitButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-sm);
+}
+
+.authForm__submitButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.authForm__submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.authForm__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+}
+
+.authForm__forgotLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+}
+
+.authForm__footer {
+  margin-top: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.authForm__footer a {
+  color: var(--color-primary);
+}
+
+.authForm__primaryLink {
+  display: inline-block;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.authForm__primaryLink:hover {
+  background-color: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+.authForm__secondaryButton {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.authForm__secondaryButton:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.authForm__successMessage {
+  padding: var(--spacing-md);
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+}

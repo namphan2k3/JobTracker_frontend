@@ -1,0 +1,40 @@
+---
+description: Form dùng Modal – tránh form co lại giữa màn hình
+globs: "**/*Form*.jsx,**/*Create*.jsx,**/*Edit*.jsx,**/admin/**/*.jsx,**/Profile*.jsx"
+alwaysApply: false
+---
+
+# Form Modal Rule
+
+## Nguyên tắc
+
+**Form edit/create** nên dùng **Modal** thay vì full page. Tránh form co lại giữa màn hình, trống 2 bên.
+
+## Khi nào dùng Modal
+
+- Form chỉnh sửa (edit): Company, User, Application, ...
+- Form tạo mới (create): Invite user, Add employee, Create application, ...
+- Form đơn giản (ít field): Profile, Đổi mật khẩu, ...
+
+## Khi nào dùng Full Page
+
+- Form nhiều bước (wizard)
+- Form phức tạp (nhiều section, tab)
+- Trang apply công khai (candidate)
+
+## Pattern
+
+```jsx
+// Trang list/detail có nút "Sửa" / "Tạo mới"
+// Click → mở Modal chứa form
+<Modal open={editOpen} onClose={() => setEditOpen(false)} title="Chỉnh sửa">
+  <form onSubmit={handleSave}>...</form>
+</Modal>
+```
+
+## Modal component
+
+- Dùng `Modal` từ `src/components/Modal.jsx`
+- Backdrop: overlay tối, click đóng
+- Content: max-width hợp lý, scroll khi dài
+- Focus trap, Escape đóng

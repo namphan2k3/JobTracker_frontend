@@ -1,0 +1,214 @@
+.permissionListPage {
+}
+
+.permissionListPage__required {
+  color: var(--color-error);
+}
+
+.permissionListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.permissionListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.permissionListPage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.permissionListPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.permissionListPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.permissionListPage__createButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.permissionListPage__createButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.permissionListPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.permissionListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.permissionListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.permissionListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.permissionListPage__table th,
+.permissionListPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.permissionListPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.permissionListPage__descCell {
+  max-width: 16rem;
+}
+
+.permissionListPage__emptyCell {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.permissionListPage__tableRowInactive td {
+  color: var(--color-text-muted);
+}
+
+.permissionListPage__actionLink,
+.permissionListPage__actionLinkDanger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  padding: 0 var(--spacing-xs);
+}
+
+.permissionListPage__actionLink {
+  color: var(--color-primary);
+}
+
+.permissionListPage__actionLink:hover {
+  text-decoration: underline;
+}
+
+.permissionListPage__actionLinkDanger {
+  color: var(--color-error);
+}
+
+.permissionListPage__actionLinkDanger:hover {
+  text-decoration: underline;
+}
+
+.permissionListPage__confirmText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.permissionListPage__confirmYes,
+.permissionListPage__confirmNo {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.permissionListPage__confirmYes {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.permissionListPage__confirmYes:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.permissionListPage__confirmNo {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+}
+
+.permissionListPage__confirmNo:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.permissionListPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.permissionListPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.permissionListPage__formActions button[type='submit'],
+.permissionListPage__formActions button[type='button'] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.permissionListPage__formActions button[type='submit'] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.permissionListPage__formActions button[type='submit']:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.permissionListPage__formActions button[type='button'] {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.permissionListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.permissionListPage__formActions button[type='button']:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.permissionListPage__checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.permissionListPage__checkboxLabel input {
+  width: auto;
+}

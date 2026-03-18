@@ -1,0 +1,110 @@
+.jdTemplate {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background: var(--color-bg);
+  color: var(--color-text);
+  position: relative;
+}
+
+.jdTemplate__previewBadge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  padding: 4px 12px;
+  background: var(--color-primary-muted, #e0e7ff);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.jdTemplate__header {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.jdTemplate__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.jdTemplate__company {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-md);
+}
+
+.jdTemplate__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.jdTemplate__meta span {
+  padding: 4px 10px;
+  background: var(--color-bg-muted, #f3f4f6);
+  border-radius: var(--radius-sm);
+}
+
+.jdTemplate__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.jdTemplate__section h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-md);
+  color: var(--color-text);
+}
+
+.jdTemplate__content {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--color-text);
+}
+
+.jdTemplate__skillList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.jdTemplate__skillList li {
+  padding: 6px 12px;
+  background: var(--color-bg-muted, #f3f4f6);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.jdTemplate__footer {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.jdTemplate__applyBtn {
+  display: inline-block;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: opacity 0.15s;
+}
+
+.jdTemplate__applyBtn:hover {
+  opacity: 0.9;
+}

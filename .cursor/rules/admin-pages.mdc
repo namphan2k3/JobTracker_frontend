@@ -1,0 +1,55 @@
+---
+description: Phân tách trang Admin - System Admin vs Company Admin
+globs: "**/admin/**/*,**/system-admin/**/*,**/Admin*.jsx,**/SystemAdmin*.jsx"
+alwaysApply: false
+---
+
+# Admin Pages – System Admin vs Company Admin
+
+## Tổng quan
+
+- **Company Admin** (`/app/admin/*`): Quản lý nội bộ công ty (users, company của mình)
+- **System Admin** (`/app/system-admin/*`): Quản lý toàn hệ thống (companies, roles, audit, ...)
+
+**Không gộp** chức năng System Admin vào `/app/admin` – tránh lộn xộn.
+
+---
+
+## Company Admin (`/app/admin/*`)
+
+**Roles**: `ADMIN_COMPANY`, `RECRUITER`
+
+| Route | Trang | Mô tả |
+|-------|-------|-------|
+| /app/admin/users | AdminUserListPage | Users trong company |
+| /app/admin/users/:id | AdminUserDetailPage | Chi tiết user |
+| /app/admin/users/invite | AdminInviteUserPage | Mời user |
+| /app/admin/users/employees | AdminAddEmployeePage | Thêm nhân viên |
+| /app/admin/company | AdminCompanyPage | Công ty của mình (xem/sửa) |
+
+---
+
+## System Admin (`/app/system-admin/*`)
+
+**Role**: Chỉ `SYSTEM_ADMIN`
+
+| Route | Trang | Mô tả |
+|-------|-------|-------|
+| /app/system-admin/companies | AdminCompanyListPage | Danh sách tất cả công ty |
+| /app/system-admin/companies/:id | AdminCompanyDetailPage | Chi tiết + Verify |
+| (sau) roles, application-statuses, audit-logs, subscription-plans | | |
+
+---
+
+## Guard & Layout
+
+- `SystemAdminGuard`: Check `user.roleName === 'SYSTEM_ADMIN'`, else redirect `/app/dashboard`
+- `SystemAdminLayout`: Sidebar nav cho system-admin
+- AppLayout: Hiện link "System Admin" chỉ khi `isSystemAdmin`
+
+---
+
+## Trang thường (không phải Admin)
+
+- `/app/dashboard`, `/app/jobs`, `/app/applications`, `/app/profile` – dùng chung
+- `/public/*` – candidate (apply, track status, upload) – không cần login

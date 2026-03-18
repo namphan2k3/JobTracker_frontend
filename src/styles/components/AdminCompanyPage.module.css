@@ -1,0 +1,184 @@
+.adminCompanyPage {
+  /* full width – form nằm trong modal */
+}
+
+.adminCompanyPage__header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.adminCompanyPage__backLinks {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.adminCompanyPage__backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+}
+
+.adminCompanyPage__backLink:hover {
+  text-decoration: underline;
+}
+
+.adminCompanyPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminCompanyPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminCompanyPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminCompanyPage__success {
+  padding: var(--spacing-md);
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminCompanyPage__info {
+  margin-bottom: var(--spacing-xl);
+}
+
+.adminCompanyPage__info p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.adminCompanyPage__deleted {
+  color: var(--color-error);
+}
+
+.adminCompanyPage__verifySection {
+  margin-bottom: var(--spacing-xl);
+}
+
+.adminCompanyPage__sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.adminCompanyPage__verifyActions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.adminCompanyPage__verifyActions button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+.adminCompanyPage__verifyActions button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminCompanyPage__unverifyButton:hover:not(:disabled) {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.adminCompanyPage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.adminCompanyPage__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.adminCompanyPage__input {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.adminCompanyPage__input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.adminCompanyPage__textarea {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.adminCompanyPage__textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.adminCompanyPage__submitButton {
+  padding: var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.adminCompanyPage__submitButton:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.adminCompanyPage__submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.adminCompanyPage__editButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.adminCompanyPage__editButton:hover {
+  background: var(--color-primary-hover);
+}
+
+.adminCompanyPage__formActions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminCompanyPage__formActions button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.adminCompanyPage__cancelButton {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.adminCompanyPage__cancelButton:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

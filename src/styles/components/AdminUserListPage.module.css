@@ -1,0 +1,152 @@
+.adminUserListPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.adminUserListPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.adminUserListPage__actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.adminUserListPage__inviteLink,
+.adminUserListPage__employeeLink {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.adminUserListPage__inviteLink {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.adminUserListPage__inviteLink:hover {
+  background-color: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+.adminUserListPage__employeeLink {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.adminUserListPage__employeeLink:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.adminUserListPage__searchForm {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.adminUserListPage__searchInput {
+  flex: 1;
+  max-width: 16rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+}
+
+.adminUserListPage__searchInput:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+
+.adminUserListPage__searchButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.adminUserListPage__searchButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.adminUserListPage__error {
+  padding: var(--spacing-md);
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.adminUserListPage__loading {
+  color: var(--color-text-muted);
+}
+
+.adminUserListPage__tableWrap {
+  overflow-x: auto;
+}
+
+.adminUserListPage__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminUserListPage__table th,
+.adminUserListPage__table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminUserListPage__table th {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.adminUserListPage__tableRowDeactivated td {
+  color: var(--color-text-muted);
+}
+
+.adminUserListPage__detailLink {
+  color: var(--color-primary);
+}
+
+.adminUserListPage__detailLink:hover {
+  text-decoration: underline;
+}
+
+.adminUserListPage__pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.adminUserListPage__pagination button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.adminUserListPage__pagination button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.adminUserListPage__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

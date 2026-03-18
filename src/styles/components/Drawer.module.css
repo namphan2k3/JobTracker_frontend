@@ -1,0 +1,156 @@
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: drawerOverlayIn 0.2s ease;
+}
+
+@keyframes drawerOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.drawerPanel {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  background: var(--color-bg);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: drawerPanelIn 0.25s ease;
+}
+
+@keyframes drawerPanelIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 640px) {
+  .drawerPanel {
+    max-width: 520px;
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.drawerTitle {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.drawerClose {
+  padding: var(--spacing-sm);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.drawerClose:hover {
+  color: var(--color-text);
+  background: var(--color-bg-muted);
+}
+
+.drawerBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+}
+
+/* Form styles trong drawer */
+.drawerBody label:not([class*="checkboxLabel"]):not([class*="templatePill"]) {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.drawerBody input:not([type='checkbox']):not([type='radio']),
+.drawerBody select,
+.drawerBody textarea {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-top: var(--spacing-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.drawerBody input:focus,
+.drawerBody select:focus,
+.drawerBody textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-primary-muted);
+}
+
+.drawerBody textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.drawerBody button[type="submit"],
+.drawerBody button[type="button"]:not(.drawerClose) {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.drawerBody button[type="submit"] {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.drawerBody button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.drawerBody button[type="button"]:not(.drawerClose) {
+  margin-left: var(--spacing-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.drawerBody button[type="button"]:not(.drawerClose):hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.drawerBody .formActions,
+.drawerBody [class*="formActions"] {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+}

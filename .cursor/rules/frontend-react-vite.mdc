@@ -1,0 +1,42 @@
+---
+description: Frontend React + Vite + JS rules - stack, naming, no icons
+globs: "**/*.jsx,**/*.js,**/*.css,**/*.module.css"
+alwaysApply: false
+---
+
+# JobTracker Frontend Rules
+
+## Tech Stack
+
+- React 18+ (function components, hooks)
+- JavaScript (ES2022+), không TypeScript
+- Vite (build)
+
+## UI
+
+- Responsive: mobile-first, breakpoints sm(640px), md(768px), lg(1024px), xl(1280px)
+- Không dùng icon library (FontAwesome, Material Icons, etc.)
+- Giao diện hiện đại, minimal, text + layout only
+
+## CSS Naming (Bắt buộc)
+
+- **Cấm**: `.container`, `.card`, `.button`, `.wrapper`, `.box`, `.item`, `.btn`
+- **Bắt buộc**: tên mô tả rõ context (VD: `dashboardActiveJobsCard`, `jobListFilterBar`
+- Convention: `[block]__[element]--[modifier]`
+  - Ví dụ: `dashboardSummary__activeJobsCard--highlight`, `jobListPage__tableRow--draft`
+- Dùng CSS Modules cho component styles
+
+## File Structure
+
+- `styles/variables.css`: `--color-primary`, `--spacing-md`, `--breakpoint-md`, `--form-max-width`, `--form-card-max-width`
+- `styles/components/*.module.css`: một file per component
+
+## Form Modal (ưu tiên)
+
+- Form edit/create dùng **Modal** – xem rule `form-modal.mdc`
+- Tránh form full page co lại giữa màn hình
+
+## Trang Detail (full width)
+
+- Trang detail (User, Company, Application, Profile) dùng **full width**
+- Không dùng `max-width` + `margin: 0 auto` cho page wrapper – tránh content dồn giữa

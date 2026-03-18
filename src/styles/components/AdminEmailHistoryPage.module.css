@@ -1,0 +1,37 @@
+.adminEmailHistoryPage { }
+.adminEmailHistoryPage__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); }
+.adminEmailHistoryPage__title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-text); }
+.adminEmailHistoryPage__actions { display: flex; gap: var(--spacing-md); }
+.adminEmailHistoryPage__backLink { font-size: var(--font-size-sm); color: var(--color-primary); text-decoration: none; }
+.adminEmailHistoryPage__backLink:hover { text-decoration: underline; }
+.adminEmailHistoryPage__filters { margin-bottom: var(--spacing-lg); }
+.adminEmailHistoryPage__filters select {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  min-width: 140px;
+  max-width: 180px;
+}
+.adminEmailHistoryPage__error { padding: var(--spacing-md); background: var(--color-error-muted); color: var(--color-error); margin-bottom: var(--spacing-lg); border-radius: var(--radius-md); }
+.adminEmailHistoryPage__loading { color: var(--color-text-muted); }
+.adminEmailHistoryPage__tableWrap { overflow-x: auto; }
+.adminEmailHistoryPage__table { width: 100%; border-collapse: collapse; }
+.adminEmailHistoryPage__table th, .adminEmailHistoryPage__table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
+.adminEmailHistoryPage__table th { font-weight: var(--font-weight-medium); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.adminEmailHistoryPage__subjectCell { max-width: 14rem; }
+.adminEmailHistoryPage__emptyCell { text-align: center; color: var(--color-text-muted); padding: var(--spacing-xl); }
+.adminEmailHistoryPage__status { font-size: var(--font-size-sm); padding: var(--spacing-xs) var(--spacing-sm); border-radius: var(--radius-md); font-weight: var(--font-weight-medium); }
+.adminEmailHistoryPage__status__PENDING { background: var(--color-bg-muted); color: var(--color-text-muted); }
+.adminEmailHistoryPage__status__SENT { background: var(--color-primary-muted); color: var(--color-primary); }
+.adminEmailHistoryPage__status__FAILED { background: var(--color-error-muted); color: var(--color-error); }
+.adminEmailHistoryPage__actionLink { background: none; border: none; cursor: pointer; color: var(--color-primary); font-size: var(--font-size-sm); }
+.adminEmailHistoryPage__actionLink:hover { text-decoration: underline; }
+.adminEmailHistoryPage__pagination { display: flex; align-items: center; gap: var(--spacing-md); margin-top: var(--spacing-lg); }
+.adminEmailHistoryPage__pagination button { padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); background: var(--color-bg); border-radius: var(--radius-md); }
+.adminEmailHistoryPage__pagination button:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-primary); }
+.adminEmailHistoryPage__pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+.adminEmailHistoryPage__detail p { margin-bottom: var(--spacing-sm); }
+.adminEmailHistoryPage__detailBody { max-height: 12rem; overflow-y: auto; padding: var(--spacing-md); background: var(--color-bg-muted); border-radius: var(--radius-md); margin: var(--spacing-md) 0; }
+.adminEmailHistoryPage__resendButton { padding: var(--spacing-sm) var(--spacing-md); background: var(--color-primary); color: var(--color-text-inverse); border: none; border-radius: var(--radius-md); cursor: pointer; margin-top: var(--spacing-md); }
+.adminEmailHistoryPage__resendButton:hover:not(:disabled) { background: var(--color-primary-hover); }
