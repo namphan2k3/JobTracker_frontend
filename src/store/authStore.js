@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { API_BASE } from '../api/config';
 
-const API_BASE = import.meta.env.VITE_API_BASE || '/api/v1';
 const REFRESH_PATH = '/auth/refresh';
 
 /**
