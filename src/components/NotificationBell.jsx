@@ -4,7 +4,7 @@ import { Bell } from 'lucide-react';
 import { getNotifications } from '../api/notifications';
 import styles from '../styles/components/NotificationBell.module.css';
 
-const POLL_INTERVAL_MS = 30000;
+const POLL_INTERVAL_MS = 10000;
 
 export function NotificationBell() {
   const [unreadCount, setUnreadCount] = useState(0);
