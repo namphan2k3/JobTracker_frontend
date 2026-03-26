@@ -117,6 +117,7 @@ export function ApplicationListPage() {
   const [rejectReason, setRejectReason] = useState('');
   const [bulkRejectSendEmail, setBulkRejectSendEmail] = useState(false);
   const [bulkRejectCustomMessage, setBulkRejectCustomMessage] = useState('');
+  const [bulkAdvanceOpen, setBulkAdvanceOpen] = useState(false);
   const [filters, setFilters] = useState({
     search: '',
     status: '',
@@ -289,6 +290,45 @@ export function ApplicationListPage() {
       setBulkRejectCustomMessage('');
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Từ chối hàng loạt thất bại');
+    } finally {
+      setBulkUpdating(false);
+    }
+  };
+
+  const allSameStatus = selectedApplications.length > 0 &&
+    selectedApplications.every((app) => {
+      const t = getStatusTypeForApp(app, statuses);
+      return t === getStatusTypeForApp(selectedApplications[0], statuses);
+    });
+
+  const bulkNextStatusRaw = allSameStatus && selectedApplications.length > 0
+    ? findNextStatusForApp(selectedApplications[0], statuses)
+    : null;
+
+  const bulkNextType = bulkNextStatusRaw ? getStatusType(bulkNextStatusRaw) : '';
+
+  const bulkNextStatus = bulkNextType === 'SCREENING' ? bulkNextStatusRaw : null;
+
+  const bulkNextLabel = bulkNextStatus
+    ? `Chuyển sang ${bulkNextStatus.displayName || bulkNextStatus.name}`
+    : '';
+
+  const handleConfirmBulkAdvance = async () => {
+    if (!bulkNextStatus || !allSameStatus) return;
+    setError('');
+    setBulkUpdating(true);
+    try {
+      for (const app of selectedApplications) {
+        // eslint-disable-next-line no-await-in-loop
+        await updateApplicationStatus(app.id, {
+          statusId: bulkNextStatus.id,
+        });
+      }
+      await reloadApplications();
+      setSelectedIds([]);
+      setBulkAdvanceOpen(false);
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Chuyển trạng thái hàng loạt thất bại');
     } finally {
       setBulkUpdating(false);
     }
@@ -596,22 +636,33 @@ export function ApplicationListPage() {
         <>
           {viewMode === 'table' && (
             <>
-              {selectedApplications.length > 0 && rejectStatus && canQuickUpdate && (
+              {selectedApplications.length > 0 && canQuickUpdate && (
                 <div className={styles.applicationListPage__bulkBar}>
                   <span>Đã chọn {selectedApplications.length} ứng viên</span>
                   <div className={styles.applicationListPage__bulkActions}>
-                    <button
-                      type="button"
-                      className={styles.applicationListPage__quickStatusButtonDanger}
-                      onClick={() => {
-                        setRejectReason('');
-                        setBulkRejectSendEmail(false);
-                        setBulkRejectCustomMessage('');
-                        setBulkRejectOpen(true);
-                      }}
-                    >
-                      Từ chối các ứng viên đã chọn
-                    </button>
+                    {allSameStatus && bulkNextStatus && (
+                      <button
+                        type="button"
+                        className={styles.applicationListPage__quickStatusButton}
+                        onClick={() => setBulkAdvanceOpen(true)}
+                      >
+                        {bulkNextLabel}
+                      </button>
+                    )}
+                    {rejectStatus && (
+                      <button
+                        type="button"
+                        className={styles.applicationListPage__quickStatusButtonDanger}
+                        onClick={() => {
+                          setRejectReason('');
+                          setBulkRejectSendEmail(false);
+                          setBulkRejectCustomMessage('');
+                          setBulkRejectOpen(true);
+                        }}
+                      >
+                        Từ chối các ứng viên đã chọn
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
@@ -1616,6 +1667,51 @@ export function ApplicationListPage() {
                 </div>
               </form>
             </Modal>
+          )}
+          {bulkAdvanceOpen && bulkNextStatus && (
+            <div className={styles.applicationListPage__modalBackdrop}>
+              <div className={styles.applicationListPage__modal}>
+                <h2 className={styles.applicationListPage__modalTitle}>
+                  {bulkNextLabel}
+                </h2>
+                <p className={styles.applicationListPage__modalSubtitle}>
+                  {selectedApplications.length} ứng viên sẽ được chuyển từ{' '}
+                  <strong>{selectedApplications[0]?.status?.displayName || selectedApplications[0]?.status?.name}</strong>
+                  {' sang '}
+                  <strong>{bulkNextStatus.displayName || bulkNextStatus.name}</strong>.
+                </p>
+                <div className={styles.applicationListPage__modalList}>
+                  {selectedApplications.map((app) => (
+                    <div key={app.id} className={styles.applicationListPage__modalListItem}>
+                      <span>{app.candidateName}</span>
+                      <span className={styles.applicationListPage__modalListJob}>
+                        {app.jobTitle || jobMap[app.jobId]?.title || app.jobId}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className={styles.applicationListPage__modalActions}>
+                  <button
+                    type="button"
+                    className={styles.applicationListPage__quickStatusButton}
+                    onClick={handleConfirmBulkAdvance}
+                    disabled={bulkUpdating}
+                  >
+                    {bulkUpdating
+                      ? 'Đang chuyển...'
+                      : `Xác nhận ${bulkNextLabel.toLowerCase()}`}
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.applicationListPage__quickStatusButton}
+                    onClick={() => setBulkAdvanceOpen(false)}
+                    disabled={bulkUpdating}
+                  >
+                    Hủy
+                  </button>
+                </div>
+              </div>
+            </div>
           )}
           {bulkRejectOpen && rejectStatus && selectedApplications.length > 0 && (
             <div className={styles.applicationListPage__modalBackdrop}>

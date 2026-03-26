@@ -262,7 +262,11 @@ export function AppLayout() {
                 aria-expanded={userMenuOpen}
               >
                 <span className={styles.appLayout__userAvatar}>
-                  {user?.firstName?.[0] || user?.email?.[0] || '?'}
+                  {user?.avatarUrl ? (
+                    <img src={user.avatarUrl} alt="" className={styles.appLayout__userAvatarImg} />
+                  ) : (
+                    user?.firstName?.[0] || user?.email?.[0] || '?'
+                  )}
                 </span>
                 <span className={styles.appLayout__userName}>
                   {user?.firstName} {user?.lastName}

@@ -381,6 +381,46 @@
   color: var(--color-text-muted);
 }
 
+.applicationListPage__modalListStatus {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.applicationListPage__bulkGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.applicationListPage__bulkGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-muted, #f3f4f6);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.applicationListPage__bulkGroupFrom {
+  color: var(--color-text-muted);
+}
+
+.applicationListPage__bulkGroupArrow {
+  color: var(--color-primary);
+}
+
+.applicationListPage__bulkGroupTo {
+  color: var(--color-primary);
+}
+
+.applicationListPage__bulkGroupCount {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-xs);
+}
+
 .applicationListPage__modalLabel {
   font-size: var(--font-size-sm);
   display: flex;
