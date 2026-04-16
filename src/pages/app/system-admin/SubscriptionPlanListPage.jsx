@@ -7,6 +7,7 @@ import {
   deleteSubscriptionPlan,
 } from '../../../api/subscriptionPlans';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/SubscriptionPlanListPage.module.css';
 
 function formatPrice(price) {
@@ -200,15 +201,7 @@ export function SubscriptionPlanListPage() {
                     <td>{p.isActive !== false ? 'Hoạt động' : 'Tắt'}</td>
                     <td>
                       <button type="button" className={styles.subscriptionPlanListPage__actionLink} onClick={() => openEdit(p)}>Sửa</button>
-                      {deleteConfirmId === p.id ? (
-                        <>
-                          <span className={styles.subscriptionPlanListPage__confirmText}>Xóa?</span>
-                          <button type="button" className={styles.subscriptionPlanListPage__confirmYes} onClick={() => handleDelete(p.id)} disabled={deleting}>Có</button>
-                          <button type="button" className={styles.subscriptionPlanListPage__confirmNo} onClick={() => setDeleteConfirmId(null)}>Không</button>
-                        </>
-                      ) : (
-                        <button type="button" className={styles.subscriptionPlanListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(p.id)}>Xóa</button>
-                      )}
+                      <button type="button" className={styles.subscriptionPlanListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(p.id)}>Xóa</button>
                     </td>
                   </tr>
                 ))
@@ -273,6 +266,14 @@ export function SubscriptionPlanListPage() {
           </div>
         </form>
       </Drawer>
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa gói đăng ký"
+        message="Bạn có chắc chắn muốn xóa gói đăng ký này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

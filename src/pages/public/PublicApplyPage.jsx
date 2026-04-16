@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { applyToJob } from '../../api/publicApplications';
 import styles from '../../styles/components/PublicApplyPage.module.css';
 
@@ -44,9 +44,6 @@ export function PublicApplyPage() {
           <p>
             Đơn ứng tuyển của bạn đã được gửi. Chúng tôi sẽ liên hệ với bạn qua email.
           </p>
-          <Link to="/" className={styles.publicApplyPage__homeLink}>
-            Về trang chủ
-          </Link>
         </div>
       </div>
     );

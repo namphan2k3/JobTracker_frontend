@@ -7,6 +7,7 @@ import {
   deletePermission,
 } from '../../../api/permissions';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/PermissionListPage.module.css';
 
 const ACTION_OPTIONS = ['READ', 'CREATE', 'UPDATE', 'DELETE'];
@@ -168,15 +169,7 @@ export function PermissionListPage() {
                     <td>{p.isActive !== false ? 'Hoạt động' : 'Tắt'}</td>
                     <td>
                       <button type="button" className={styles.permissionListPage__actionLink} onClick={() => openEditModal(p)}>Sửa</button>
-                      {deleteConfirmId === p.id ? (
-                        <>
-                          <span className={styles.permissionListPage__confirmText}>Xóa?</span>
-                          <button type="button" className={styles.permissionListPage__confirmYes} onClick={() => handleDelete(p.id)} disabled={deleting}>Có</button>
-                          <button type="button" className={styles.permissionListPage__confirmNo} onClick={() => setDeleteConfirmId(null)}>Không</button>
-                        </>
-                      ) : (
-                        <button type="button" className={styles.permissionListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(p.id)}>Xóa</button>
-                      )}
+                      <button type="button" className={styles.permissionListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(p.id)}>Xóa</button>
                     </td>
                   </tr>
                 ))
@@ -231,6 +224,14 @@ export function PermissionListPage() {
           </div>
         </form>
       </Drawer>
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa quyền"
+        message="Bạn có chắc chắn muốn xóa quyền này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

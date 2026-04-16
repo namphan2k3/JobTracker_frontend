@@ -38,6 +38,105 @@
   background: var(--color-primary-hover);
 }
 
+/* Job Selector */
+.applicationListPage__jobSelector {
+  margin-bottom: var(--spacing-xl);
+}
+
+.applicationListPage__jobSelectorLabel {
+  display: block;
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.applicationListPage__jobList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.applicationListPage__jobCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg, 12px);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  text-align: left;
+}
+
+.applicationListPage__jobCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.applicationListPage__jobCard_active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-muted, rgba(59, 130, 246, 0.06));
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.15);
+}
+
+.applicationListPage__jobCardTitle {
+  font-weight: var(--font-weight-medium, 500);
+  font-size: var(--font-size-base, 14px);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.applicationListPage__jobCardCount {
+  font-size: var(--font-size-sm, 13px);
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.applicationListPage__jobEmpty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-secondary, #6b7280);
+  padding: var(--spacing-xl);
+}
+
+/* Job Banner (selected job) */
+.applicationListPage__jobBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-primary-muted, rgba(59, 130, 246, 0.06));
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg, 12px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.applicationListPage__jobBannerTitle {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-semibold, 600);
+  margin: 0;
+  color: var(--color-text);
+}
+
+.applicationListPage__jobBannerClear {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm, 13px);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.applicationListPage__jobBannerClear:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
 /* Tabs */
 .applicationListPage__tabs {
   display: flex;

@@ -7,6 +7,7 @@ import {
   deleteApplicationStatus,
 } from '../../../api/applicationStatuses';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/AdminApplicationStatusListPage.module.css';
 
 const DEFAULT_COLORS = ['#3B82F6', '#8B5CF6', '#F59E0B', '#10B981', '#EF4444', '#6366F1', '#EC4899'];
@@ -227,15 +228,7 @@ export function AdminApplicationStatusListPage() {
                     <td>{s.isActive !== false ? 'Hoạt động' : 'Tắt'}</td>
                     <td>
                       <button type="button" className={styles.adminApplicationStatusListPage__actionLink} onClick={() => openEditModal(s)}>Sửa</button>
-                      {deleteConfirmId === s.id ? (
-                        <>
-                          <span className={styles.adminApplicationStatusListPage__confirmText}>Xóa?</span>
-                          <button type="button" className={styles.adminApplicationStatusListPage__confirmYes} onClick={() => handleDelete(s.id)} disabled={deleting}>Có</button>
-                          <button type="button" className={styles.adminApplicationStatusListPage__confirmNo} onClick={() => setDeleteConfirmId(null)}>Không</button>
-                        </>
-                      ) : (
-                        <button type="button" className={styles.adminApplicationStatusListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(s.id)}>Xóa</button>
-                      )}
+                      <button type="button" className={styles.adminApplicationStatusListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(s.id)}>Xóa</button>
                     </td>
                   </tr>
                 ))
@@ -362,6 +355,14 @@ export function AdminApplicationStatusListPage() {
           </div>
         </form>
       </Drawer>
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa trạng thái"
+        message="Bạn có chắc chắn muốn xóa trạng thái ứng tuyển này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

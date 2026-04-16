@@ -10,6 +10,7 @@ import {
 } from '../../../api/adminRoles';
 import { getPermissions } from '../../../api/permissions';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/RoleListPage.module.css';
 
 export function RoleListPage() {
@@ -241,36 +242,13 @@ export function RoleListPage() {
                       >
                         Sửa
                       </button>
-                      {deleteConfirmId === r.id ? (
-                        <>
-                          <span className={styles.roleListPage__confirmText}>
-                            Xóa?
-                          </span>
-                          <button
-                            type="button"
-                            className={styles.roleListPage__confirmYes}
-                            onClick={() => handleDelete(r.id)}
-                            disabled={deleting}
-                          >
-                            Có
-                          </button>
-                          <button
-                            type="button"
-                            className={styles.roleListPage__confirmNo}
-                            onClick={() => setDeleteConfirmId(null)}
-                          >
-                            Không
-                          </button>
-                        </>
-                      ) : (
-                        <button
-                          type="button"
-                          className={styles.roleListPage__actionLinkDanger}
-                          onClick={() => setDeleteConfirmId(r.id)}
-                        >
-                          Xóa
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        className={styles.roleListPage__actionLinkDanger}
+                        onClick={() => setDeleteConfirmId(r.id)}
+                      >
+                        Xóa
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -403,6 +381,14 @@ export function RoleListPage() {
           </div>
         </form>
       </Drawer>
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa vai trò"
+        message="Bạn có chắc chắn muốn xóa vai trò này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

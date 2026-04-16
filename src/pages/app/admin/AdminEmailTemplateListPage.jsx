@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getEmailTemplates, deleteEmailTemplate } from '../../../api/emailTemplates';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/AdminEmailTemplateListPage.module.css';
 
 export function AdminEmailTemplateListPage() {
@@ -82,15 +83,7 @@ export function AdminEmailTemplateListPage() {
                     <td>
                       <Link to={`/app/admin/email-templates/${t.id}`} className={styles.adminEmailTemplateListPage__actionLink}>Sửa</Link>
                       {t.companyId != null && (
-                        deleteConfirmId === t.id ? (
-                          <>
-                            <span className={styles.adminEmailTemplateListPage__confirmText}>Xóa?</span>
-                            <button type="button" className={styles.adminEmailTemplateListPage__confirmYes} onClick={() => handleDelete(t.id)} disabled={deleting}>Có</button>
-                            <button type="button" className={styles.adminEmailTemplateListPage__confirmNo} onClick={() => setDeleteConfirmId(null)}>Không</button>
-                          </>
-                        ) : (
-                          <button type="button" className={styles.adminEmailTemplateListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(t.id)}>Xóa</button>
-                        )
+                        <button type="button" className={styles.adminEmailTemplateListPage__actionLinkDanger} onClick={() => setDeleteConfirmId(t.id)}>Xóa</button>
                       )}
                     </td>
                   </tr>
@@ -100,6 +93,14 @@ export function AdminEmailTemplateListPage() {
           </table>
         </div>
       )}
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa template email"
+        message="Bạn có chắc chắn muốn xóa template email này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

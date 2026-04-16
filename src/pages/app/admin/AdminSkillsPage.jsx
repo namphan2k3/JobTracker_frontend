@@ -6,6 +6,7 @@ import {
   deleteSkill,
 } from '../../../api/skills';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/AdminSkillsPage.module.css';
 import { usePermissions } from '../../../hooks/usePermissions';
 
@@ -290,36 +291,13 @@ export function AdminSkillsPage() {
                             >
                               Sửa
                             </button>
-                            {deleteConfirmId === s.id ? (
-                              <>
-                                <span className={styles.adminSkillsPage__confirmText}>
-                                  Xóa?
-                                </span>
-                                <button
-                                  type="button"
-                                  className={styles.adminSkillsPage__confirmYes}
-                                  onClick={() => handleDelete(s.id)}
-                                  disabled={deleting}
-                                >
-                                  Có
-                                </button>
-                                <button
-                                  type="button"
-                                  className={styles.adminSkillsPage__confirmNo}
-                                  onClick={() => setDeleteConfirmId(null)}
-                                >
-                                  Không
-                                </button>
-                              </>
-                            ) : (
-                              <button
-                                type="button"
-                                className={styles.adminSkillsPage__actionLinkDanger}
-                                onClick={() => setDeleteConfirmId(s.id)}
-                              >
-                                Xóa
-                              </button>
-                            )}
+                            <button
+                              type="button"
+                              className={styles.adminSkillsPage__actionLinkDanger}
+                              onClick={() => setDeleteConfirmId(s.id)}
+                            >
+                              Xóa
+                            </button>
                           </>
                         ) : (
                           <span className={styles.adminSkillsPage__readOnlyHint}>Chỉ xem</span>
@@ -453,6 +431,14 @@ export function AdminSkillsPage() {
           </div>
         </form>
       </Drawer>
+      <ConfirmModal
+        open={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        onConfirm={() => handleDelete(deleteConfirmId)}
+        title="Xóa kỹ năng"
+        message="Bạn có chắc chắn muốn xóa kỹ năng này? Hành động này không thể hoàn tác."
+        loading={deleting}
+      />
     </div>
   );
 }

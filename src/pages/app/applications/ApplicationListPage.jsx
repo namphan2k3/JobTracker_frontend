@@ -163,13 +163,19 @@ export function ApplicationListPage() {
   }, [selectedTemplateId]);
 
   useEffect(() => {
+    if (!filters.jobId) {
+      setApplications([]);
+      setPagination(null);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     const params = {
       page: filters.page,
       size: filters.size,
       search: filters.search || undefined,
       status: filters.status || undefined,
-      jobId: filters.jobId || undefined,
+      jobId: filters.jobId,
       assignedTo: filters.assignedTo || undefined,
     };
     getApplications(params)
@@ -500,6 +506,8 @@ export function ApplicationListPage() {
     }
   };
 
+  const selectedJob = jobs.find((j) => j.id === filters.jobId);
+
   return (
     <div className={styles.applicationListPage}>
       <header className={styles.applicationListPage__header}>
@@ -516,90 +524,123 @@ export function ApplicationListPage() {
         </div>
       </header>
 
-      <div className={styles.applicationListPage__tabs}>
-        <button
-          type="button"
-          className={`${styles.applicationListPage__tab} ${!filters.status ? styles.applicationListPage__tab_active : ''}`}
-          onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: '', page: 0 })); }}
-        >
-          Tất cả
-          {pagination && !filters.status && (
-            <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
-          )}
-        </button>
-        {statuses
-          .filter((s) => s.isActive !== false && !s.deletedAt)
-          .sort((a, b) => (STATUS_ORDER[getStatusType(a)] ?? 50) - (STATUS_ORDER[getStatusType(b)] ?? 50))
-          .map((s) => {
-            const filterValue = (s.name || '').toUpperCase();
-            const isActive = filters.status === filterValue;
-            return (
-              <button
-                key={s.id}
-                type="button"
-                className={`${styles.applicationListPage__tab} ${isActive ? styles.applicationListPage__tab_active : ''}`}
-                onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: filterValue, page: 0 })); }}
-                style={{ '--tab-color': s.color || undefined }}
-              >
-                <span
-                  className={styles.applicationListPage__tabDot}
-                  style={{ background: s.color || '#6b7280' }}
-                />
-                {s.displayName || s.name}
-                {isActive && pagination && (
-                  <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
-                )}
-              </button>
-            );
-          })}
-      </div>
-
-      <form onSubmit={handleSearch} className={styles.applicationListPage__filterBar}>
-        <input
-          type="search"
-          className={styles.applicationListPage__searchInput}
-          placeholder="Tìm theo tên, email..."
-          value={filters.search}
-          onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
-        />
-        <select
-          className={styles.applicationListPage__filterSelect}
-          value={filters.jobId}
-          onChange={(e) => setFilters((f) => ({ ...f, jobId: e.target.value, page: 0 }))}
-        >
-          <option value="">Tất cả job</option>
+      {!filters.jobId && (
+      <div className={styles.applicationListPage__jobSelector}>
+        <label className={styles.applicationListPage__jobSelectorLabel}>Chọn job để xem ứng tuyển</label>
+        <div className={styles.applicationListPage__jobList}>
           {jobs.map((j) => (
-            <option key={j.id} value={j.id}>
-              {j.title}
-            </option>
+            <button
+              key={j.id}
+              type="button"
+              className={`${styles.applicationListPage__jobCard} ${filters.jobId === j.id ? styles.applicationListPage__jobCard_active : ''}`}
+              onClick={() => {
+                setSelectedIds([]);
+                setFilters((f) => ({ ...f, jobId: j.id, status: '', page: 0 }));
+              }}
+            >
+              <span className={styles.applicationListPage__jobCardTitle}>{j.title}</span>
+              {j.applicationsCount != null && (
+                <span className={styles.applicationListPage__jobCardCount}>
+                  {j.applicationsCount} ứng viên
+                </span>
+              )}
+            </button>
           ))}
-        </select>
-        <select
-          className={styles.applicationListPage__filterSelect}
-          value={filters.assignedTo}
-          onChange={(e) => setFilters((f) => ({ ...f, assignedTo: e.target.value, page: 0 }))}
-        >
-          <option value="">Tất cả người phụ trách</option>
-          {users.map((u) => (
-            <option key={u.id} value={u.id}>
-              {u.firstName} {u.lastName}
-            </option>
-          ))}
-        </select>
-        <button type="submit" className={styles.applicationListPage__searchButton}>
-          Tìm
-        </button>
-      </form>
-
-      {error && (
-        <div className={styles.applicationListPage__error} role="alert">
-          {error}
+          {jobs.length === 0 && !loading && (
+            <p className={styles.applicationListPage__jobEmpty}>Chưa có job nào.</p>
+          )}
         </div>
+      </div>
       )}
 
-      {loading ? (
-        <p className={styles.applicationListPage__loading}>Đang tải...</p>
-      ) : (
+      {filters.jobId && (
+        <>
+          <div className={styles.applicationListPage__jobBanner}>
+            <h2 className={styles.applicationListPage__jobBannerTitle}>{selectedJob?.title}</h2>
+            <button
+              type="button"
+              className={styles.applicationListPage__jobBannerClear}
+              onClick={() => {
+                setSelectedIds([]);
+                setFilters((f) => ({ ...f, jobId: '', status: '', page: 0 }));
+              }}
+            >
+              ← Quay lại danh sách job
+            </button>
+          </div>
+
+          <div className={styles.applicationListPage__tabs}>
+            <button
+              type="button"
+              className={`${styles.applicationListPage__tab} ${!filters.status ? styles.applicationListPage__tab_active : ''}`}
+              onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: '', page: 0 })); }}
+            >
+              Tất cả
+              {pagination && !filters.status && (
+                <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
+              )}
+            </button>
+            {statuses
+              .filter((s) => s.isActive !== false && !s.deletedAt)
+              .sort((a, b) => (STATUS_ORDER[getStatusType(a)] ?? 50) - (STATUS_ORDER[getStatusType(b)] ?? 50))
+              .map((s) => {
+                const filterValue = (s.name || '').toUpperCase();
+                const isActive = filters.status === filterValue;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className={`${styles.applicationListPage__tab} ${isActive ? styles.applicationListPage__tab_active : ''}`}
+                    onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: filterValue, page: 0 })); }}
+                    style={{ '--tab-color': s.color || undefined }}
+                  >
+                    <span
+                      className={styles.applicationListPage__tabDot}
+                      style={{ background: s.color || '#6b7280' }}
+                    />
+                    {s.displayName || s.name}
+                    {isActive && pagination && (
+                      <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
+                    )}
+                  </button>
+                );
+              })}
+          </div>
+
+          <form onSubmit={handleSearch} className={styles.applicationListPage__filterBar}>
+            <input
+              type="search"
+              className={styles.applicationListPage__searchInput}
+              placeholder="Tìm theo tên, email..."
+              value={filters.search}
+              onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
+            />
+            <select
+              className={styles.applicationListPage__filterSelect}
+              value={filters.assignedTo}
+              onChange={(e) => setFilters((f) => ({ ...f, assignedTo: e.target.value, page: 0 }))}
+            >
+              <option value="">Tất cả người phụ trách</option>
+              {users.map((u) => (
+                <option key={u.id} value={u.id}>
+                  {u.firstName} {u.lastName}
+                </option>
+              ))}
+            </select>
+            <button type="submit" className={styles.applicationListPage__searchButton}>
+              Tìm
+            </button>
+          </form>
+
+          {error && (
+            <div className={styles.applicationListPage__error} role="alert">
+              {error}
+            </div>
+          )}
+
+          {loading ? (
+            <p className={styles.applicationListPage__loading}>Đang tải...</p>
+          ) : (
         <>
           {selectedApplications.length > 0 && canQuickUpdate && (
             <div className={styles.applicationListPage__bulkBar}>
@@ -637,7 +678,6 @@ export function ApplicationListPage() {
                     />
                   </th>
                   <th>Ứng viên</th>
-                  <th>Job</th>
                   <th>Trạng thái</th>
                   <th>Match</th>
                   <th>CV</th>
@@ -669,14 +709,6 @@ export function ApplicationListPage() {
                             <div className={styles.applicationListPage__email}>
                               {app.candidateEmail}
                             </div>
-                          </td>
-                          <td>
-                            <Link
-                              to={`/app/jobs/${app.jobId}`}
-                              className={styles.applicationListPage__jobLink}
-                            >
-                              {app.jobTitle || jobMap[app.jobId]?.title || app.jobId}
-                            </Link>
                           </td>
                           <td>
                             <span
@@ -1586,6 +1618,8 @@ export function ApplicationListPage() {
                 </div>
               </div>
             </div>
+          )}
+          </>
           )}
         </>
       )}
