@@ -2,6 +2,8 @@
   width: 100%;
   max-width: var(--form-max-width);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .authForm__title {
@@ -66,6 +68,7 @@
   color: var(--color-error);
   font-size: var(--font-size-sm);
   border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-xl);
 }
 
 .authForm__forgotLink {
@@ -85,6 +88,7 @@
 
 .authForm__primaryLink {
   display: inline-block;
+  margin-top: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-xl);
   background-color: var(--color-primary);
   color: var(--color-text-inverse);
