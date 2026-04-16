@@ -129,16 +129,41 @@ export function AdminPlansPage() {
         <p className={styles.adminPlansPage__loading}>Đang tải...</p>
       ) : (
         <div className={styles.adminPlansPage__grid}>
-          {plans
-            .filter((p) => p.isActive !== false)
-            .map((plan) => {
+          {(() => {
+            const activePlans = plans
+              .filter((p) => p.isActive !== false)
+              .sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+            const currentPlanPrice = currentSubscription
+              ? Number(
+                  activePlans.find(
+                    (p) =>
+                      p.id === currentSubscription.planId ||
+                      p.code === currentSubscription.planCode
+                  )?.price ?? 0
+                )
+              : 0;
+
+            return activePlans.map((plan) => {
               const isCurrent =
                 currentSubscription &&
                 (currentSubscription.planId === plan.id ||
                   currentSubscription.planCode === plan.code);
-              const isDisabled = isCurrent || submittingPlanId != null;
+              const planPrice = Number(plan.price) || 0;
+              const isLowerTier =
+                !isCurrent && currentSubscription && planPrice < currentPlanPrice;
+              const isDisabled =
+                isCurrent || isLowerTier || submittingPlanId != null;
+
+              let buttonLabel = 'Chọn gói';
+              if (isCurrent) buttonLabel = 'Đang sử dụng';
+              else if (submittingPlanId === plan.id) buttonLabel = 'Đang xử lý...';
+              else if (isLowerTier) buttonLabel = 'Không thể hạ gói';
+
               return (
-                <article key={plan.id} className={styles.adminPlansPage__card}>
+                <article
+                  key={plan.id}
+                  className={`${styles.adminPlansPage__card}${isCurrent ? ` ${styles.adminPlansPage__card_current}` : ''}${isLowerTier ? ` ${styles.adminPlansPage__card_disabled}` : ''}`}
+                >
                   <h2 className={styles.adminPlansPage__planName}>
                     {plan.name || plan.code}
                     {isCurrent && (
@@ -172,15 +197,12 @@ export function AdminPlansPage() {
                     onClick={() => handleSelectPlan(plan)}
                     disabled={isDisabled}
                   >
-                    {isCurrent
-                      ? 'Đang sử dụng'
-                      : submittingPlanId === plan.id
-                        ? 'Đang xử lý...'
-                        : 'Chọn gói'}
+                    {buttonLabel}
                   </button>
                 </article>
               );
-            })}
+            });
+          })()}
         </div>
       )}
 

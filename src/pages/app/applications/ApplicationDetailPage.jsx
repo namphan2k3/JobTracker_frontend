@@ -24,7 +24,7 @@ import {
   downloadAttachment,
   deleteAttachment,
 } from '../../../api/attachments';
-import { getEmailTemplates, updateEmailTemplate } from '../../../api/emailTemplates';
+import { getEmailTemplates, getEmailTemplateById, updateEmailTemplate } from '../../../api/emailTemplates';
 import { sendApplicationEmail, getApplicationEmailPreview } from '../../../api/applications';
 import { getApplicationStatuses } from '../../../api/applicationStatuses';
 import { getUsers } from '../../../api/adminUsers';
@@ -111,6 +111,8 @@ export function ApplicationDetailPage() {
   const [emailTemplates, setEmailTemplates] = useState([]);
   const [emailTemplatesLoading, setEmailTemplatesLoading] = useState(false);
   const [selectedTemplateId, setSelectedTemplateId] = useState('');
+  const [templateDetail, setTemplateDetail] = useState(null);
+  const [templateDetailLoading, setTemplateDetailLoading] = useState(false);
   const [interviewSendEmail, setInterviewSendEmail] = useState(false);
   const [interviewEmailMessage, setInterviewEmailMessage] = useState('');
   const currentUser = useAuthStore((s) => s.user);
@@ -325,6 +327,20 @@ export function ApplicationDetailPage() {
       .catch(() => {})
       .finally(() => setEmailTemplatesLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!selectedTemplateId) {
+      setTemplateDetail(null);
+      return;
+    }
+    let cancelled = false;
+    setTemplateDetailLoading(true);
+    getEmailTemplateById(selectedTemplateId)
+      .then((detail) => { if (!cancelled) setTemplateDetail(detail); })
+      .catch(() => { if (!cancelled) setTemplateDetail(null); })
+      .finally(() => { if (!cancelled) setTemplateDetailLoading(false); });
+    return () => { cancelled = true; };
+  }, [selectedTemplateId]);
 
   useEffect(() => {
     if (id) {
@@ -935,6 +951,20 @@ export function ApplicationDetailPage() {
                                       </label>
                                     ))}
                                   </div>
+                                  {selectedTemplateId && (
+                                    <div className={styles.applicationDetailPage__templatePreview}>
+                                      {templateDetailLoading ? (
+                                        <p className={styles.applicationDetailPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                                      ) : templateDetail ? (
+                                        <>
+                                          <div className={styles.applicationDetailPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                                          <div className={styles.applicationDetailPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                                        </>
+                                      ) : (
+                                        <p className={styles.applicationDetailPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                                      )}
+                                    </div>
+                                  )}
                                 </>
                               );
                             })()}
@@ -1105,6 +1135,20 @@ export function ApplicationDetailPage() {
                                       </label>
                                     ))}
                                   </div>
+                                  {selectedTemplateId && (
+                                    <div className={styles.applicationDetailPage__templatePreview}>
+                                      {templateDetailLoading ? (
+                                        <p className={styles.applicationDetailPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                                      ) : templateDetail ? (
+                                        <>
+                                          <div className={styles.applicationDetailPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                                          <div className={styles.applicationDetailPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                                        </>
+                                      ) : (
+                                        <p className={styles.applicationDetailPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                                      )}
+                                    </div>
+                                  )}
                                 </>
                               );
                             })()}
@@ -1668,6 +1712,20 @@ export function ApplicationDetailPage() {
                       </label>
                     ))}
                 </div>
+                {selectedTemplateId && (
+                  <div className={styles.applicationDetailPage__templatePreview}>
+                    {templateDetailLoading ? (
+                      <p className={styles.applicationDetailPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                    ) : templateDetail ? (
+                      <>
+                        <div className={styles.applicationDetailPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                        <div className={styles.applicationDetailPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                      </>
+                    ) : (
+                      <p className={styles.applicationDetailPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                    )}
+                  </div>
+                )}
                 <label>
                   Tin nhắn thêm trong email (custom_message)
                   <textarea

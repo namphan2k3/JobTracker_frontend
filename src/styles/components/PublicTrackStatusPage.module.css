@@ -1,74 +1,324 @@
 .publicTrackStatusPage {
-  max-width: var(--form-card-max-width);
+  max-width: 640px;
   margin: 0 auto;
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-2xl) var(--spacing-md);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.publicTrackStatusPage__title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-lg);
-  color: var(--color-text);
+/* Loading */
+.publicTrackStatusPage__loadingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  gap: var(--spacing-md);
+}
+
+.publicTrackStatusPage__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: trackSpin 0.7s linear infinite;
+}
+
+@keyframes trackSpin {
+  to { transform: rotate(360deg); }
 }
 
 .publicTrackStatusPage__loading {
   color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 }
 
-.publicTrackStatusPage__error {
-  padding: var(--spacing-md);
+/* Error */
+.publicTrackStatusPage__errorCard {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background: var(--color-bg-muted, #f9fafb);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.publicTrackStatusPage__errorIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--color-error-muted);
   color: var(--color-error);
-  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
 }
 
-.publicTrackStatusPage__card {
-  padding: var(--spacing-xl);
-  background: var(--color-bg-muted);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
+.publicTrackStatusPage__errorCard h2 {
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--spacing-xs);
+  color: var(--color-text);
 }
 
-.publicTrackStatusPage__card dl {
-  margin: 0;
-}
-
-.publicTrackStatusPage__card dt {
-  font-size: var(--font-size-sm);
+.publicTrackStatusPage__errorCard p {
   color: var(--color-text-muted);
-  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  margin: 0;
 }
 
-.publicTrackStatusPage__card dd {
+/* Hero */
+.publicTrackStatusPage__hero {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.publicTrackStatusPage__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs);
+}
+
+.publicTrackStatusPage__subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
   margin: 0;
+}
+
+/* Card */
+.publicTrackStatusPage__card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.publicTrackStatusPage__jobHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.publicTrackStatusPage__jobLabel {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.publicTrackStatusPage__jobTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin: var(--spacing-xs) 0 0;
+}
+
+/* Stepper */
+.publicTrackStatusPage__stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md) 0;
+  position: relative;
+}
+
+.publicTrackStatusPage__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.publicTrackStatusPage__stepDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border: 2px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-muted);
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s;
+}
+
+.publicTrackStatusPage__stepLine {
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 16px);
+  right: calc(-50% + 16px);
+  height: 2px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.publicTrackStatusPage__stepLine_done {
+  background: var(--color-primary);
+}
+
+.publicTrackStatusPage__stepLabel {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Step states */
+.publicTrackStatusPage__step_completed .publicTrackStatusPage__stepDot {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.publicTrackStatusPage__step_current .publicTrackStatusPage__stepDot {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted, rgba(59, 130, 246, 0.15));
+}
+
+.publicTrackStatusPage__step_current .publicTrackStatusPage__stepLabel {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.publicTrackStatusPage__step_completed .publicTrackStatusPage__stepLabel {
+  color: var(--color-text);
+}
+
+/* Rejected banner */
+.publicTrackStatusPage__rejectedBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--color-error-muted, #fef2f2);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid #fecaca;
+}
+
+.publicTrackStatusPage__rejectedIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.publicTrackStatusPage__rejectedBanner strong {
+  display: block;
+  color: #991b1b;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+}
+
+.publicTrackStatusPage__rejectedBanner p {
+  color: #b91c1c;
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+/* Details grid */
+.publicTrackStatusPage__details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.publicTrackStatusPage__detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.publicTrackStatusPage__detailLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.publicTrackStatusPage__detailValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
 }
 
 .publicTrackStatusPage__statusBadge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--status-color, #6b7280) 20%, transparent);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--status-color, #6b7280) 15%, transparent);
   color: var(--status-color, #6b7280);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  width: fit-content;
+}
+
+/* Footer */
+.publicTrackStatusPage__footer {
+  margin-top: var(--spacing-lg);
+  text-align: center;
 }
 
 .publicTrackStatusPage__hint {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-lg);
+  margin: 0;
 }
 
 .publicTrackStatusPage__hint a {
   color: var(--color-primary);
-}
-
-.publicTrackStatusPage__homeLink {
-  color: var(--color-primary);
   text-decoration: none;
+  font-weight: var(--font-weight-medium);
 }
 
-.publicTrackStatusPage__homeLink:hover {
+.publicTrackStatusPage__hint a:hover {
   text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .publicTrackStatusPage__details {
+    grid-template-columns: 1fr;
+  }
+
+  .publicTrackStatusPage__stepLabel {
+    font-size: 10px;
+  }
+
+  .publicTrackStatusPage__stepDot {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .publicTrackStatusPage__stepLine {
+    top: 13px;
+    left: calc(50% + 14px);
+    right: calc(-50% + 14px);
+  }
 }

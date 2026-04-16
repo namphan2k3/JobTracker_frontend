@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getApplications, updateApplicationStatus } from '../../../api/applications';
 import { createInterview } from '../../../api/interviews';
 import { usePermissions } from '../../../hooks/usePermissions';
@@ -7,20 +7,21 @@ import { getApplicationStatuses } from '../../../api/applicationStatuses';
 import { getJobs } from '../../../api/jobs';
 import { getUsers } from '../../../api/adminUsers';
 import { Modal } from '../../../components/Modal';
-import { getEmailTemplates, updateEmailTemplate } from '../../../api/emailTemplates';
+import { getEmailTemplates, getEmailTemplateById, updateEmailTemplate } from '../../../api/emailTemplates';
 import styles from '../../../styles/components/ApplicationListPage.module.css';
 
 const STATUS_ORDER = {
+  NEW: 1,
   APPLIED: 1,
   SCREENING: 2,
   INTERVIEW: 3,
   OFFER: 4,
+  OFFERED: 4,
   HIRED: 5,
   REJECTED: 99,
 };
 
-const PIPELINE_SEQUENCE = ['APPLIED', 'SCREENING', 'INTERVIEW', 'OFFER', 'HIRED'];
-const PIPELINE_COLUMNS = ['APPLIED', 'SCREENING', 'INTERVIEW', 'OFFER', 'HIRED', 'REJECTED'];
+const PIPELINE_SEQUENCE = ['NEW', 'APPLIED', 'SCREENING', 'INTERVIEW', 'OFFER', 'HIRED'];
 
 const ALLOWED_TRANSITIONS = {
   APPLIED: ['SCREENING'],
@@ -74,7 +75,6 @@ const findNextStatusForApp = (app, allStatuses) => {
 
 export function ApplicationListPage() {
   const { hasPermission } = usePermissions();
-  const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [statuses, setStatuses] = useState([]);
@@ -112,12 +112,10 @@ export function ApplicationListPage() {
     hired_custom_message: '',
     reject_custom_message: '',
   });
-  const [viewMode, setViewMode] = useState('table'); // 'table' | 'pipeline'
   const [rejectingApp, setRejectingApp] = useState(null);
   const [rejectReason, setRejectReason] = useState('');
   const [bulkRejectSendEmail, setBulkRejectSendEmail] = useState(false);
   const [bulkRejectCustomMessage, setBulkRejectCustomMessage] = useState('');
-  const [bulkAdvanceOpen, setBulkAdvanceOpen] = useState(false);
   const [filters, setFilters] = useState({
     search: '',
     status: '',
@@ -129,6 +127,8 @@ export function ApplicationListPage() {
   const [emailTemplates, setEmailTemplates] = useState([]);
   const [emailTemplatesLoading, setEmailTemplatesLoading] = useState(false);
   const [selectedTemplateId, setSelectedTemplateId] = useState('');
+  const [templateDetail, setTemplateDetail] = useState(null);
+  const [templateDetailLoading, setTemplateDetailLoading] = useState(false);
 
   useEffect(() => {
     setEmailTemplatesLoading(true);
@@ -147,6 +147,20 @@ export function ApplicationListPage() {
       .catch(() => {})
       .finally(() => setEmailTemplatesLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!selectedTemplateId) {
+      setTemplateDetail(null);
+      return;
+    }
+    let cancelled = false;
+    setTemplateDetailLoading(true);
+    getEmailTemplateById(selectedTemplateId)
+      .then((detail) => { if (!cancelled) setTemplateDetail(detail); })
+      .catch(() => { if (!cancelled) setTemplateDetail(null); })
+      .finally(() => { if (!cancelled) setTemplateDetailLoading(false); });
+    return () => { cancelled = true; };
+  }, [selectedTemplateId]);
 
   useEffect(() => {
     setLoading(true);
@@ -210,16 +224,6 @@ export function ApplicationListPage() {
   const interviewStatus =
     statuses.find(
       (s) => getStatusType(s) === 'INTERVIEW' && (s.isActive !== false) && !s.deletedAt
-    ) || null;
-
-  const offerStatus =
-    statuses.find(
-      (s) => getStatusType(s) === 'OFFER' && (s.isActive !== false) && !s.deletedAt
-    ) || null;
-
-  const hiredStatus =
-    statuses.find(
-      (s) => getStatusType(s) === 'HIRED' && (s.isActive !== false) && !s.deletedAt
     ) || null;
 
   const rejectStatus =
@@ -290,45 +294,6 @@ export function ApplicationListPage() {
       setBulkRejectCustomMessage('');
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Từ chối hàng loạt thất bại');
-    } finally {
-      setBulkUpdating(false);
-    }
-  };
-
-  const allSameStatus = selectedApplications.length > 0 &&
-    selectedApplications.every((app) => {
-      const t = getStatusTypeForApp(app, statuses);
-      return t === getStatusTypeForApp(selectedApplications[0], statuses);
-    });
-
-  const bulkNextStatusRaw = allSameStatus && selectedApplications.length > 0
-    ? findNextStatusForApp(selectedApplications[0], statuses)
-    : null;
-
-  const bulkNextType = bulkNextStatusRaw ? getStatusType(bulkNextStatusRaw) : '';
-
-  const bulkNextStatus = bulkNextType === 'SCREENING' ? bulkNextStatusRaw : null;
-
-  const bulkNextLabel = bulkNextStatus
-    ? `Chuyển sang ${bulkNextStatus.displayName || bulkNextStatus.name}`
-    : '';
-
-  const handleConfirmBulkAdvance = async () => {
-    if (!bulkNextStatus || !allSameStatus) return;
-    setError('');
-    setBulkUpdating(true);
-    try {
-      for (const app of selectedApplications) {
-        // eslint-disable-next-line no-await-in-loop
-        await updateApplicationStatus(app.id, {
-          statusId: bulkNextStatus.id,
-        });
-      }
-      await reloadApplications();
-      setSelectedIds([]);
-      setBulkAdvanceOpen(false);
-    } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Chuyển trạng thái hàng loạt thất bại');
     } finally {
       setBulkUpdating(false);
     }
@@ -540,30 +505,6 @@ export function ApplicationListPage() {
       <header className={styles.applicationListPage__header}>
         <h1 className={styles.applicationListPage__title}>Ứng tuyển</h1>
         <div className={styles.applicationListPage__headerActions}>
-          <div className={styles.applicationListPage__viewToggle}>
-            <button
-              type="button"
-              className={
-                viewMode === 'table'
-                  ? styles.applicationListPage__viewToggleBtnActive
-                  : styles.applicationListPage__viewToggleBtn
-              }
-              onClick={() => setViewMode('table')}
-            >
-              Bảng
-            </button>
-            <button
-              type="button"
-              className={
-                viewMode === 'pipeline'
-                  ? styles.applicationListPage__viewToggleBtnActive
-                  : styles.applicationListPage__viewToggleBtn
-              }
-              onClick={() => setViewMode('pipeline')}
-            >
-              Pipeline
-            </button>
-          </div>
           {hasPermission('APPLICATION_CREATE') && (
             <Link
               to="/app/applications/create"
@@ -575,6 +516,44 @@ export function ApplicationListPage() {
         </div>
       </header>
 
+      <div className={styles.applicationListPage__tabs}>
+        <button
+          type="button"
+          className={`${styles.applicationListPage__tab} ${!filters.status ? styles.applicationListPage__tab_active : ''}`}
+          onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: '', page: 0 })); }}
+        >
+          Tất cả
+          {pagination && !filters.status && (
+            <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
+          )}
+        </button>
+        {statuses
+          .filter((s) => s.isActive !== false && !s.deletedAt)
+          .sort((a, b) => (STATUS_ORDER[getStatusType(a)] ?? 50) - (STATUS_ORDER[getStatusType(b)] ?? 50))
+          .map((s) => {
+            const filterValue = (s.name || '').toUpperCase();
+            const isActive = filters.status === filterValue;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                className={`${styles.applicationListPage__tab} ${isActive ? styles.applicationListPage__tab_active : ''}`}
+                onClick={() => { setSelectedIds([]); setFilters((f) => ({ ...f, status: filterValue, page: 0 })); }}
+                style={{ '--tab-color': s.color || undefined }}
+              >
+                <span
+                  className={styles.applicationListPage__tabDot}
+                  style={{ background: s.color || '#6b7280' }}
+                />
+                {s.displayName || s.name}
+                {isActive && pagination && (
+                  <span className={styles.applicationListPage__tabCount}>{pagination.totalItems}</span>
+                )}
+              </button>
+            );
+          })}
+      </div>
+
       <form onSubmit={handleSearch} className={styles.applicationListPage__filterBar}>
         <input
           type="search"
@@ -583,18 +562,6 @@ export function ApplicationListPage() {
           value={filters.search}
           onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
         />
-        <select
-          className={styles.applicationListPage__filterSelect}
-          value={filters.status}
-          onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value, page: 0 }))}
-        >
-          <option value="">Tất cả trạng thái</option>
-          {statuses.map((s) => (
-            <option key={s.id} value={getStatusType(s)}>
-              {s.displayName || s.name}
-            </option>
-          ))}
-        </select>
         <select
           className={styles.applicationListPage__filterSelect}
           value={filters.jobId}
@@ -634,80 +601,69 @@ export function ApplicationListPage() {
         <p className={styles.applicationListPage__loading}>Đang tải...</p>
       ) : (
         <>
-          {viewMode === 'table' && (
-            <>
-              {selectedApplications.length > 0 && canQuickUpdate && (
-                <div className={styles.applicationListPage__bulkBar}>
-                  <span>Đã chọn {selectedApplications.length} ứng viên</span>
-                  <div className={styles.applicationListPage__bulkActions}>
-                    {allSameStatus && bulkNextStatus && (
-                      <button
-                        type="button"
-                        className={styles.applicationListPage__quickStatusButton}
-                        onClick={() => setBulkAdvanceOpen(true)}
-                      >
-                        {bulkNextLabel}
-                      </button>
-                    )}
-                    {rejectStatus && (
-                      <button
-                        type="button"
-                        className={styles.applicationListPage__quickStatusButtonDanger}
-                        onClick={() => {
-                          setRejectReason('');
-                          setBulkRejectSendEmail(false);
-                          setBulkRejectCustomMessage('');
-                          setBulkRejectOpen(true);
-                        }}
-                      >
-                        Từ chối các ứng viên đã chọn
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-              <div className={styles.applicationListPage__tableWrap}>
-                <table className={styles.applicationListPage__table}>
-                  <thead>
-                    <tr>
-                      <th>
+          {selectedApplications.length > 0 && canQuickUpdate && (
+            <div className={styles.applicationListPage__bulkBar}>
+              <span>Đã chọn {selectedApplications.length} ứng viên</span>
+              <div className={styles.applicationListPage__bulkActions}>
+                {rejectStatus && (
+                  <button
+                    type="button"
+                    className={styles.applicationListPage__quickStatusButtonDanger}
+                    onClick={() => {
+                      setRejectReason('');
+                      setBulkRejectSendEmail(false);
+                      setBulkRejectCustomMessage('');
+                      setBulkRejectOpen(true);
+                    }}
+                  >
+                    Từ chối các ứng viên đã chọn
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+          <div className={styles.applicationListPage__tableWrap}>
+            <table className={styles.applicationListPage__table}>
+              <thead>
+                <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      checked={
+                        applications.length > 0 &&
+                        selectedApplications.length === applications.length
+                      }
+                      onChange={handleToggleSelectAll}
+                    />
+                  </th>
+                  <th>Ứng viên</th>
+                  <th>Job</th>
+                  <th>Trạng thái</th>
+                  <th>Match</th>
+                  <th>CV</th>
+                  <th>Ngày ứng tuyển</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                {applications.map((app) => {
+                  const nextStatus = findNextStatusForApp(app, statuses);
+                  const nextType = nextStatus ? getStatusType(nextStatus) : '';
+                  let nextLabel = 'Sang trạng thái tiếp theo';
+                  if (nextType === 'SCREENING') nextLabel = 'Đưa sang Screening';
+                  else if (nextType === 'INTERVIEW') nextLabel = 'Đặt lịch phỏng vấn';
+                  else if (nextType === 'OFFER') nextLabel = 'Sang Offer';
+                  else if (nextType === 'HIRED') nextLabel = 'Đánh dấu Hired';
+                  const isSelected = selectedIds.includes(app.id);
+                  return (
+                    <tr key={app.id}>
+                      <td>
                         <input
                           type="checkbox"
-                          checked={
-                            applications.length > 0 &&
-                            selectedApplications.length === applications.length
-                          }
-                          onChange={handleToggleSelectAll}
+                          checked={isSelected}
+                          onChange={() => handleToggleSelectOne(app.id)}
                         />
-                      </th>
-                      <th>Ứng viên</th>
-                      <th>Job</th>
-                      <th>Trạng thái</th>
-                      <th>Match</th>
-                      <th>CV</th>
-                      <th>Ngày ứng tuyển</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {applications.map((app) => {
-                      const nextStatus = findNextStatusForApp(app, statuses);
-                      const nextType = nextStatus ? getStatusType(nextStatus) : '';
-                      let nextLabel = 'Sang trạng thái tiếp theo';
-                      if (nextType === 'SCREENING') nextLabel = 'Đưa sang Screening';
-                      else if (nextType === 'INTERVIEW') nextLabel = 'Đặt lịch phỏng vấn';
-                      else if (nextType === 'OFFER') nextLabel = 'Sang Offer';
-                      else if (nextType === 'HIRED') nextLabel = 'Đánh dấu Hired';
-                      const isSelected = selectedIds.includes(app.id);
-                      return (
-                        <tr key={app.id}>
-                          <td>
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={() => handleToggleSelectOne(app.id)}
-                            />
-                          </td>
+                      </td>
                           <td>
                             <div>{app.candidateName}</div>
                             <div className={styles.applicationListPage__email}>
@@ -732,7 +688,35 @@ export function ApplicationListPage() {
                               {app.status?.displayName || app.status?.name || '-'}
                             </span>
                           </td>
-                          <td>{app.matchScore != null ? `${app.matchScore}%` : '-'}</td>
+                          <td>
+                            {app.matchScore != null ? (
+                              <div className={styles.applicationListPage__matchCell}>
+                                <div className={styles.applicationListPage__matchBar}>
+                                  <div
+                                    className={styles.applicationListPage__matchBarFill}
+                                    style={{
+                                      width: `${app.matchScore}%`,
+                                      background:
+                                        app.matchScore >= 70 ? '#22c55e' :
+                                        app.matchScore >= 40 ? '#f59e0b' : '#ef4444',
+                                    }}
+                                  />
+                                </div>
+                                <span
+                                  className={styles.applicationListPage__matchValue}
+                                  style={{
+                                    color:
+                                      app.matchScore >= 70 ? '#16a34a' :
+                                      app.matchScore >= 40 ? '#d97706' : '#dc2626',
+                                  }}
+                                >
+                                  {app.matchScore}%
+                                </span>
+                              </div>
+                            ) : (
+                              <span style={{ color: 'var(--color-text-muted)' }}>-</span>
+                            )}
+                          </td>
                           <td>
                             {app.resumeFilePath ? (
                               <a
@@ -755,224 +739,18 @@ export function ApplicationListPage() {
                           </td>
                           <td>{app.appliedDate || '-'}</td>
                           <td>
-                            <Link
-                              to={`/app/applications/${app.id}`}
-                              className={styles.applicationListPage__detailLink}
-                            >
-                              Chi tiết
-                            </Link>
-                            {canQuickUpdate && nextStatus && nextType && nextType !== 'INTERVIEW' && nextType !== 'OFFER' && nextType !== 'HIRED' && (
-                              <button
-                                type="button"
-                                className={styles.applicationListPage__quickStatusButton}
-                                onClick={() => handleQuickStatusChange(app.id, nextStatus.id)}
-                                disabled={updatingId === app.id}
-                              >
-                                {updatingId === app.id ? '...' : nextLabel}
-                              </button>
-                            )}
-                          {canQuickUpdate && nextStatus && nextType === 'INTERVIEW' && (
-                            <button
-                              type="button"
-                              className={styles.applicationListPage__quickStatusButton}
-                              onClick={() => {
-                                setScheduleInterviewForm((f) => ({
-                                  ...f,
-                                  sendEmail: Boolean(interviewStatus?.autoSendEmail),
-                                }));
-                                setScheduleInterviewApp(app);
-                              }}
-                              disabled={scheduleInterviewLoading}
-                            >
-                              Đặt lịch phỏng vấn
-                            </button>
-                          )}
-                            {canQuickUpdate && nextStatus && nextType === 'OFFER' && (
-                              <button
-                                type="button"
-                                className={styles.applicationListPage__quickStatusButton}
-                                onClick={() => openStatusModal(app, nextStatus)}
-                                disabled={updatingId === app.id}
-                              >
-                                Gửi Offer
-                              </button>
-                            )}
-                            {canQuickUpdate && nextStatus && nextType === 'HIRED' && (
-                              <button
-                                type="button"
-                                className={styles.applicationListPage__quickStatusButton}
-                                onClick={() => openStatusModal(app, nextStatus)}
-                                disabled={updatingId === app.id}
-                              >
-                                Đánh dấu Hired
-                              </button>
-                            )}
-                            {canQuickUpdate && rejectStatus && (
-                              <button
-                                type="button"
-                                className={styles.applicationListPage__quickStatusButtonDanger}
-                                onClick={() => {
-                                  if (rejectStatus.askBeforeSend) {
-                                    openStatusModal(app, rejectStatus);
-                                  } else {
-                                    handleOpenReject(app);
-                                  }
-                                }}
-                                disabled={updatingId === app.id}
-                              >
-                                Từ chối
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </>
-          )}
-
-          {viewMode === 'pipeline' && (
-            <div className={styles.applicationListPage__pipelineWrap}>
-              {PIPELINE_COLUMNS.map((type) => {
-                const columnStatus =
-                  statuses.find((s) => getStatusType(s) === type) || null;
-                const columnApps = applications.filter(
-                  (app) => getStatusTypeForApp(app, statuses) === type
-                );
-                const columnTitle =
-                  columnStatus?.displayName || columnStatus?.name || type;
-                const handleDropOnColumn = (event) => {
-                  if (!columnStatus) return;
-                  event.preventDefault();
-                  const data = event.dataTransfer.getData('text/plain');
-                  if (!data) return;
-                  try {
-                    const parsed = JSON.parse(data);
-                    const appId = parsed.id;
-                    if (!appId) return;
-                    const app = applications.find((a) => a.id === appId);
-                    const appStatusEntity = getStatusEntityForApp(app, statuses);
-                    if (!app || !appStatusEntity || appStatusEntity.id === columnStatus.id) return;
-                    const columnType = getStatusType(columnStatus);
-                    const currentType = getStatusType(appStatusEntity);
-                    const isTerminal = currentType === 'HIRED' || currentType === 'REJECTED';
-                    if (isTerminal) return;
-
-                    // REJECTED: nếu askBeforeSend → mở modal có email, còn lại dùng modal đơn giản
-                    if (columnType === 'REJECTED') {
-                      const rejectedStatus =
-                        statuses.find(
-                          (s) => getStatusType(s) === 'REJECTED' && (s.isActive !== false) && !s.deletedAt
-                        ) || null;
-                      if (rejectedStatus?.askBeforeSend) {
-                        openStatusModal(app, rejectedStatus);
-                      } else {
-                        handleOpenReject(app);
-                      }
-                      return;
-                    }
-
-                    // INTERVIEW: mở form đặt lịch phỏng vấn ngay trên list
-                    if (columnType === 'INTERVIEW') {
-                      setScheduleInterviewApp(app);
-                      return;
-                    }
-
-                    // OFFER: luôn mở modal để chọn template/email
-                    if (columnType === 'OFFER') {
-                      openStatusModal(app, offerStatus || columnStatus);
-                      return;
-                    }
-
-                    // HIRED: luôn mở modal để chọn template/email
-                    if (columnType === 'HIRED') {
-                      openStatusModal(app, hiredStatus || columnStatus);
-                      return;
-                    }
-
-                    // Các stage khác (APPLIED, SCREENING, HIRED...): chỉ cho phép nếu là bước kế tiếp theo ALLOWED_TRANSITIONS
-                    const allowedNext = ALLOWED_TRANSITIONS[currentType] || [];
-                    if (!allowedNext.includes(columnType)) {
-                      return;
-                    }
-
-                    handleQuickStatusChange(appId, columnStatus.id);
-                  } catch {
-                    // ignore invalid data
-                  }
-                };
-
-                return (
-                  <div
-                    key={type}
-                    className={styles.applicationListPage__pipelineColumn}
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleDropOnColumn}
-                  >
-                    <div className={styles.applicationListPage__pipelineColumnHeader}>
-                      <span className={styles.applicationListPage__pipelineColumnTitle}>
-                        {columnTitle}
-                      </span>
-                      <span className={styles.applicationListPage__pipelineColumnCount}>
-                        {columnApps.length}
-                      </span>
-                    </div>
-                    <div className={styles.applicationListPage__pipelineColumnBody}>
-                      {columnApps.map((app) => {
-                        const nextStatus = findNextStatusForApp(app, statuses);
-                        const nextType = nextStatus
-                          ? getStatusType(nextStatus)
-                          : '';
-                        let nextLabel = 'Next';
-                        if (nextType === 'SCREENING') nextLabel = 'Screening';
-                        else if (nextType === 'INTERVIEW') nextLabel = 'Đặt lịch phỏng vấn';
-                        else if (nextType === 'OFFER') nextLabel = 'Offer';
-                        else if (nextType === 'HIRED') nextLabel = 'Hired';
-
-                        const handleDragStart = (event) => {
-                          event.dataTransfer.setData(
-                            'text/plain',
-                            JSON.stringify({ id: app.id })
-                          );
-                          event.dataTransfer.effectAllowed = 'move';
-                        };
-
-                        return (
-                          <div
-                            key={app.id}
-                            className={styles.applicationListPage__pipelineCard}
-                            draggable={canQuickUpdate}
-                            onDragStart={handleDragStart}
-                          >
-                            <div className={styles.applicationListPage__pipelineCardMain}>
-                              <div className={styles.applicationListPage__pipelineCandidate}>
-                                {app.candidateName}
-                              </div>
-                              <div className={styles.applicationListPage__pipelineJob}>
-                                {app.jobTitle || jobMap[app.jobId]?.title || app.jobId}
-                              </div>
-                              <div className={styles.applicationListPage__pipelineMeta}>
-                                <span>{app.matchScore != null ? `${app.matchScore}%` : '-'}</span>
-                                <span>{app.assignedToName || '-'}</span>
-                                <span>{app.appliedDate || '-'}</span>
-                              </div>
-                            </div>
-                            <div className={styles.applicationListPage__pipelineActions}>
+                            <div className={styles.applicationListPage__actions}>
                               <Link
                                 to={`/app/applications/${app.id}`}
                                 className={styles.applicationListPage__detailLink}
                               >
                                 Chi tiết
                               </Link>
-                              {canQuickUpdate && nextStatus && nextType && nextType !== 'INTERVIEW' && nextType !== 'OFFER' && (
+                              {canQuickUpdate && nextStatus && nextType && nextType !== 'INTERVIEW' && nextType !== 'OFFER' && nextType !== 'HIRED' && (
                                 <button
                                   type="button"
                                   className={styles.applicationListPage__quickStatusButton}
-                                  onClick={() =>
-                                    handleQuickStatusChange(app.id, nextStatus.id)
-                                  }
+                                  onClick={() => handleQuickStatusChange(app.id, nextStatus.id)}
                                   disabled={updatingId === app.id}
                                 >
                                   {updatingId === app.id ? '...' : nextLabel}
@@ -982,22 +760,36 @@ export function ApplicationListPage() {
                                 <button
                                   type="button"
                                   className={styles.applicationListPage__quickStatusButton}
-                                  onClick={() => navigate(`/app/applications/${app.id}?action=schedule-interview`)}
-                                  disabled={updatingId === app.id}
+                                  onClick={() => {
+                                    setScheduleInterviewForm((f) => ({
+                                      ...f,
+                                      sendEmail: Boolean(interviewStatus?.autoSendEmail),
+                                    }));
+                                    setScheduleInterviewApp(app);
+                                  }}
+                                  disabled={scheduleInterviewLoading}
                                 >
-                                  Đặt lịch phỏng vấn
+                                  Đặt lịch PV
                                 </button>
                               )}
                               {canQuickUpdate && nextStatus && nextType === 'OFFER' && (
                                 <button
                                   type="button"
                                   className={styles.applicationListPage__quickStatusButton}
-                                  onClick={() =>
-                                    navigate(`/app/applications/${app.id}?action=send-offer`)
-                                  }
+                                  onClick={() => openStatusModal(app, nextStatus)}
                                   disabled={updatingId === app.id}
                                 >
-                                  Gửi Offer
+                                  Offer
+                                </button>
+                              )}
+                              {canQuickUpdate && nextStatus && nextType === 'HIRED' && (
+                                <button
+                                  type="button"
+                                  className={styles.applicationListPage__quickStatusButton}
+                                  onClick={() => openStatusModal(app, nextStatus)}
+                                  disabled={updatingId === app.id}
+                                >
+                                  Hired
                                 </button>
                               )}
                               {canQuickUpdate && rejectStatus && (
@@ -1005,10 +797,8 @@ export function ApplicationListPage() {
                                   type="button"
                                   className={styles.applicationListPage__quickStatusButtonDanger}
                                   onClick={() => {
-                                    if (rejectStatus.askBeforeSend || rejectStatus.autoSendEmail) {
-                                      navigate(
-                                        `/app/applications/${app.id}?action=reject-candidate`
-                                      );
+                                    if (rejectStatus.askBeforeSend) {
+                                      openStatusModal(app, rejectStatus);
                                     } else {
                                       handleOpenReject(app);
                                     }
@@ -1019,21 +809,13 @@ export function ApplicationListPage() {
                                 </button>
                               )}
                             </div>
-                          </div>
-                        );
-                      })}
-                      {columnApps.length === 0 && (
-                        <div className={styles.applicationListPage__pipelineEmpty}>
-                          Không có ứng viên
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
           {pagination && pagination.totalPages > 1 && (
             <div className={styles.applicationListPage__pagination}>
               <button
@@ -1211,27 +993,20 @@ export function ApplicationListPage() {
                     className={styles.applicationListPage__modalTextarea}
                   />
                 </label>
-                {interviewStatus &&
-                  (interviewStatus.askBeforeSend && !interviewStatus.autoSendEmail ? (
-                    <label className={styles.applicationListPage__checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={scheduleInterviewForm.sendEmail}
-                        onChange={(e) =>
-                          setScheduleInterviewForm((f) => ({
-                            ...f,
-                            sendEmail: e.target.checked,
-                          }))
-                        }
-                      />
-                      Gửi email mời phỏng vấn cho ứng viên
-                    </label>
-                  ) : interviewStatus.autoSendEmail ? (
-                    <p className={styles.applicationListPage__modalHint}>
-                      Email mời phỏng vấn sẽ được gửi tự động theo cấu hình status INTERVIEW.
-                    </p>
-                  ) : null)}
-                {interviewStatus?.askBeforeSend && scheduleInterviewForm.sendEmail && (
+                <label className={styles.applicationListPage__checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={scheduleInterviewForm.sendEmail}
+                    onChange={(e) =>
+                      setScheduleInterviewForm((f) => ({
+                        ...f,
+                        sendEmail: e.target.checked,
+                      }))
+                    }
+                  />
+                  Gửi email mời phỏng vấn cho ứng viên
+                </label>
+                {scheduleInterviewForm.sendEmail && (
                   <>
                     <p className={styles.applicationListPage__modalHint}>
                       Chọn template email dùng cho lịch phỏng vấn:
@@ -1264,6 +1039,25 @@ export function ApplicationListPage() {
                           </label>
                         ))}
                     </div>
+                    {selectedTemplateId && (
+                      <div className={styles.applicationListPage__templatePreview}>
+                        {templateDetailLoading ? (
+                          <p className={styles.applicationListPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                        ) : templateDetail ? (
+                          <>
+                            <div className={styles.applicationListPage__templatePreviewSubject}>
+                              <strong>Subject:</strong> {templateDetail.subject || '(không có)'}
+                            </div>
+                            <div
+                              className={styles.applicationListPage__templatePreviewBody}
+                              dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }}
+                            />
+                          </>
+                        ) : (
+                          <p className={styles.applicationListPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                        )}
+                      </div>
+                    )}
                     <label className={styles.applicationListPage__modalLabel}>
                       Tin nhắn thêm (sẽ chèn vào email với biến custom_message)
                       <textarea
@@ -1422,6 +1216,20 @@ export function ApplicationListPage() {
                                     </label>
                                   ))}
                               </div>
+                              {selectedTemplateId && (
+                                <div className={styles.applicationListPage__templatePreview}>
+                                  {templateDetailLoading ? (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                                  ) : templateDetail ? (
+                                    <>
+                                      <div className={styles.applicationListPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                                      <div className={styles.applicationListPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                                    </>
+                                  ) : (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                                  )}
+                                </div>
+                              )}
                               <div className={styles.applicationListPage__modalForm}>
                                 <label className={styles.applicationListPage__modalLabel}>
                                   Mức lương / thông tin (offer_salary)
@@ -1538,6 +1346,20 @@ export function ApplicationListPage() {
                                     </label>
                                   ))}
                               </div>
+                              {selectedTemplateId && (
+                                <div className={styles.applicationListPage__templatePreview}>
+                                  {templateDetailLoading ? (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                                  ) : templateDetail ? (
+                                    <>
+                                      <div className={styles.applicationListPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                                      <div className={styles.applicationListPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                                    </>
+                                  ) : (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                                  )}
+                                </div>
+                              )}
                               <label className={styles.applicationListPage__modalLabel}>
                                 Tin nhắn thêm (customMessage)
                                 <textarea
@@ -1612,6 +1434,20 @@ export function ApplicationListPage() {
                                     </label>
                                   ))}
                               </div>
+                              {selectedTemplateId && (
+                                <div className={styles.applicationListPage__templatePreview}>
+                                  {templateDetailLoading ? (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Đang tải nội dung template...</p>
+                                  ) : templateDetail ? (
+                                    <>
+                                      <div className={styles.applicationListPage__templatePreviewSubject}><strong>Subject:</strong> {templateDetail.subject || '(không có)'}</div>
+                                      <div className={styles.applicationListPage__templatePreviewBody} dangerouslySetInnerHTML={{ __html: templateDetail.htmlContent || '<em>Không có nội dung</em>' }} />
+                                    </>
+                                  ) : (
+                                    <p className={styles.applicationListPage__templatePreviewLoading}>Không tải được nội dung template</p>
+                                  )}
+                                </div>
+                              )}
                               <label className={styles.applicationListPage__modalLabel}>
                                 Nội dung (custom_message)
                                 <textarea
@@ -1667,51 +1503,6 @@ export function ApplicationListPage() {
                 </div>
               </form>
             </Modal>
-          )}
-          {bulkAdvanceOpen && bulkNextStatus && (
-            <div className={styles.applicationListPage__modalBackdrop}>
-              <div className={styles.applicationListPage__modal}>
-                <h2 className={styles.applicationListPage__modalTitle}>
-                  {bulkNextLabel}
-                </h2>
-                <p className={styles.applicationListPage__modalSubtitle}>
-                  {selectedApplications.length} ứng viên sẽ được chuyển từ{' '}
-                  <strong>{selectedApplications[0]?.status?.displayName || selectedApplications[0]?.status?.name}</strong>
-                  {' sang '}
-                  <strong>{bulkNextStatus.displayName || bulkNextStatus.name}</strong>.
-                </p>
-                <div className={styles.applicationListPage__modalList}>
-                  {selectedApplications.map((app) => (
-                    <div key={app.id} className={styles.applicationListPage__modalListItem}>
-                      <span>{app.candidateName}</span>
-                      <span className={styles.applicationListPage__modalListJob}>
-                        {app.jobTitle || jobMap[app.jobId]?.title || app.jobId}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className={styles.applicationListPage__modalActions}>
-                  <button
-                    type="button"
-                    className={styles.applicationListPage__quickStatusButton}
-                    onClick={handleConfirmBulkAdvance}
-                    disabled={bulkUpdating}
-                  >
-                    {bulkUpdating
-                      ? 'Đang chuyển...'
-                      : `Xác nhận ${bulkNextLabel.toLowerCase()}`}
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.applicationListPage__quickStatusButton}
-                    onClick={() => setBulkAdvanceOpen(false)}
-                    disabled={bulkUpdating}
-                  >
-                    Hủy
-                  </button>
-                </div>
-              </div>
-            </div>
           )}
           {bulkRejectOpen && rejectStatus && selectedApplications.length > 0 && (
             <div className={styles.applicationListPage__modalBackdrop}>
