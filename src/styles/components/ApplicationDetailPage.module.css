@@ -1,5 +1,7 @@
 .applicationDetailPage {
   padding: var(--spacing-lg);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .applicationDetailPage__header {
@@ -794,4 +796,74 @@
   color: var(--color-text-secondary, #6b7280);
   font-size: var(--font-size-sm, 13px);
   margin: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+  .applicationDetailPage {
+    padding: var(--spacing-md);
+  }
+
+  .applicationDetailPage__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .applicationDetailPage__title {
+    font-size: var(--font-size-lg, 18px);
+  }
+
+  .applicationDetailPage__grid {
+    max-width: 100%;
+  }
+
+  .applicationDetailPage__scoreHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .applicationDetailPage__quickActions {
+    flex-direction: column;
+  }
+
+  .applicationDetailPage__quickActions button {
+    width: 100%;
+  }
+
+  .applicationDetailPage__form {
+    flex-direction: column;
+  }
+
+  .applicationDetailPage__form select,
+  .applicationDetailPage__form input,
+  .applicationDetailPage__form textarea {
+    width: 100%;
+  }
+
+  .applicationDetailPage__formActions {
+    flex-direction: column;
+  }
+
+  .applicationDetailPage__formActions button {
+    width: 100%;
+  }
+
+  .applicationDetailPage__commentFormRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .applicationDetailPage__attachmentFormRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .applicationDetailPage__attachmentItem {
+    font-size: var(--font-size-sm, 13px);
+  }
+
+  .applicationDetailPage__templatePreview {
+    max-height: 200px;
+  }
 }

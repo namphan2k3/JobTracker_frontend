@@ -1,5 +1,7 @@
 .adminPaymentHistoryPage {
   max-width: 56rem;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .adminPaymentHistoryPage__header {
@@ -43,6 +45,7 @@
 
 .adminPaymentHistoryPage__table {
   width: 100%;
+  min-width: 580px;
   border-collapse: collapse;
 }
 

@@ -1,4 +1,4 @@
-.adminEmailTemplateListPage { }
+.adminEmailTemplateListPage { min-width: 0; overflow-x: hidden; }
 .adminEmailTemplateListPage__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); flex-wrap: wrap; gap: var(--spacing-md); }
 .adminEmailTemplateListPage__title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-text); }
 .adminEmailTemplateListPage__actions { display: flex; gap: var(--spacing-md); }
@@ -9,7 +9,7 @@
 .adminEmailTemplateListPage__error { padding: var(--spacing-md); background: var(--color-error-muted); color: var(--color-error); margin-bottom: var(--spacing-lg); border-radius: var(--radius-md); }
 .adminEmailTemplateListPage__loading { color: var(--color-text-muted); }
 .adminEmailTemplateListPage__tableWrap { overflow-x: auto; }
-.adminEmailTemplateListPage__table { width: 100%; border-collapse: collapse; }
+.adminEmailTemplateListPage__table { width: 100%; min-width: 600px; border-collapse: collapse; }
 .adminEmailTemplateListPage__table th, .adminEmailTemplateListPage__table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
 .adminEmailTemplateListPage__table th { font-weight: var(--font-weight-medium); color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .adminEmailTemplateListPage__subjectCell { max-width: 16rem; }
@@ -52,3 +52,11 @@
 .adminEmailTemplateListPage__confirmYes, .adminEmailTemplateListPage__confirmNo { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-sm); border-radius: var(--radius-md); cursor: pointer; margin-right: var(--spacing-xs); }
 .adminEmailTemplateListPage__confirmYes { background: var(--color-error); color: var(--color-text-inverse); border: none; }
 .adminEmailTemplateListPage__confirmNo { background: var(--color-bg-muted); border: 1px solid var(--color-border); }
+
+@media (max-width: 767px) {
+  .adminEmailTemplateListPage { padding: var(--spacing-md); }
+  .adminEmailTemplateListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .adminEmailTemplateListPage__table th,
+  .adminEmailTemplateListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
+  .adminEmailTemplateListPage__subjectCell { max-width: 120px; }
+}

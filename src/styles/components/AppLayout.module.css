@@ -221,6 +221,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 @media (max-width: 767px) {
@@ -360,6 +362,8 @@
   flex: 1;
   padding: var(--spacing-lg);
   background: var(--color-bg);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) {

@@ -33,8 +33,8 @@ export function LandingPage() {
                 Quản lý tuyển dụng gọn gàng cho Startup & SME
               </h1>
               <p className={styles.landingPage__subtitle}>
-                JobTracker ATS giúp HR gom CV, chấm điểm ứng viên, kéo thả pipeline và gửi email cho
-                ứng viên chỉ trong một hệ thống – không còn Excel rời rạc.
+                JobTracker ATS giúp HR gom CV, chấm điểm ứng viên, quản lý trạng thái và gửi email
+                cho ứng viên chỉ trong một hệ thống - không còn Excel rời rạc.
               </p>
               <div className={styles.landingPage__actions}>
                 <Link to="/auth/register" className={styles.landingPage__primaryLink}>
@@ -63,50 +63,31 @@ export function LandingPage() {
               </div>
             </div>
             <div className={styles.landingPage__heroVisual}>
-              <div className={styles.landingPage__heroBoard}>
-                <div className={styles.landingPage__heroBoardHeader}>
-                  <span className={styles.landingPage__heroBoardTitle}>Pipeline ứng tuyển thực tế</span>
-                  <span className={styles.landingPage__heroBoardTag}>Đang hoạt động</span>
+              <div className={styles.landingPage__heroPanel}>
+                <div className={styles.landingPage__heroPanelHeader}>
+                  <span className={styles.landingPage__heroPanelTitle}>Tổng quan tuyển dụng</span>
+                  <span className={styles.landingPage__heroPanelTag}>Real-time</span>
                 </div>
-                <div className={styles.landingPage__heroBoardColumns}>
-                  <div className={styles.landingPage__heroBoardColumn}>
-                    <div className={styles.landingPage__heroBoardColumnTitle}>APPLIED – Mới nộp</div>
-                    <div className={styles.landingPage__heroBoardChip}>12 ứng viên mới</div>
-                    <div className={styles.landingPage__heroBoardCard} />
-                    <div className={styles.landingPage__heroBoardCard} />
+                <div className={styles.landingPage__heroHighlights}>
+                  <div className={styles.landingPage__heroHighlight}>
+                    <span className={styles.landingPage__heroHighlightLabel}>Ứng viên mới hôm nay</span>
+                    <strong className={styles.landingPage__heroHighlightValue}>18</strong>
+                    <span className={styles.landingPage__heroHighlightHint}>+6 so với hôm qua</span>
                   </div>
-                  <div className={styles.landingPage__heroBoardColumn}>
-                    <div className={styles.landingPage__heroBoardColumnTitle}>SCREENING – Sàng lọc</div>
-                    <div className={styles.landingPage__heroBoardChip}>6 đang sàng lọc</div>
-                    <div className={styles.landingPage__heroBoardCard} />
-                    <div className={styles.landingPage__heroBoardCard} />
+                  <div className={styles.landingPage__heroHighlight}>
+                    <span className={styles.landingPage__heroHighlightLabel}>Phỏng vấn tuần này</span>
+                    <strong className={styles.landingPage__heroHighlightValue}>11</strong>
+                    <span className={styles.landingPage__heroHighlightHint}>Không bỏ sót lịch hẹn</span>
                   </div>
-                  <div className={styles.landingPage__heroBoardColumn}>
-                    <div className={styles.landingPage__heroBoardColumnTitle}>INTERVIEW – Phỏng vấn</div>
-                    <div className={styles.landingPage__heroBoardChip}>3 lịch tuần này</div>
-                    <div className={styles.landingPage__heroBoardCard} />
-                    <div className={styles.landingPage__heroBoardCard} />
+                  <div className={styles.landingPage__heroHighlight}>
+                    <span className={styles.landingPage__heroHighlightLabel}>Tỉ lệ phản hồi email</span>
+                    <strong className={styles.landingPage__heroHighlightValue}>94%</strong>
+                    <span className={styles.landingPage__heroHighlightHint}>Mẫu email dùng sẵn</span>
                   </div>
-                  <div className={styles.landingPage__heroBoardColumn}>
-                    <div className={styles.landingPage__heroBoardColumnTitle}>OFFER – Đề nghị</div>
-                    <div className={styles.landingPage__heroBoardChip}>2 offer đang gửi</div>
-                    <div className={styles.landingPage__heroBoardCard} />
-                    <div className={styles.landingPage__heroBoardCard} />
-                  </div>
-                  <div className={styles.landingPage__heroBoardColumn}>
-                    <div className={styles.landingPage__heroBoardColumnTitle}>HIRED – Trúng tuyển</div>
-                    <div className={styles.landingPage__heroBoardChip}>1 hired tháng này</div>
-                    <div className={styles.landingPage__heroBoardCard} />
-                    <div className={styles.landingPage__heroBoardCard} />
-                  </div>
-                </div>
-                <div className={styles.landingPage__heroBoardFooter}>
-                  <span className={styles.landingPage__heroBoardFooterLabel}>REJECTED – Từ chối</span>
-                  <span className={styles.landingPage__heroBoardFooterValue}>4 ứng viên</span>
                 </div>
               </div>
               <div className={styles.landingPage__heroFloatingCard}>
-                <div className={styles.landingPage__heroFloatingLabel}>Ứng viên phù hợp nhất</div>
+                <div className={styles.landingPage__heroFloatingLabel}>Ứng viên phù hợp cao</div>
                 <div className={styles.landingPage__heroFloatingRow}>
                   <span className={styles.landingPage__heroFloatingName}>Nguyễn Minh Anh</span>
                   <span className={styles.landingPage__heroFloatingScore}>92 điểm</span>
@@ -116,31 +97,6 @@ export function LandingPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className={styles.landingPage__section}>
-          <h2 className={styles.landingPage__sectionTitle}>Nhìn toàn bộ tuyển dụng trên một màn hình</h2>
-          <p className={styles.landingPage__sectionSubtitle}>
-            Pipeline, điểm phù hợp của ứng viên và trạng thái email đều nằm trong một dashboard đơn giản.
-          </p>
-          <div className={styles.landingPage__screenshot}>
-            <div className={styles.landingPage__screenshotHeader}>
-              <span className={styles.landingPage__screenshotDot} />
-              <span className={styles.landingPage__screenshotDot} />
-              <span className={styles.landingPage__screenshotDot} />
-            </div>
-            <div className={styles.landingPage__screenshotBody}>
-              <img
-                src="https://res.cloudinary.com/df0p3068i/image/upload/v1773411266/1622abba-afe0-4fa4-a042-e3e0998f1010.png"
-                alt="Minh hoạ pipeline kéo thả, điểm phù hợp và trạng thái email trong JobTracker ATS"
-                className={styles.landingPage__screenshotImage}
-                loading="lazy"
-              />
-            </div>
-            <p className={styles.landingPage__screenshotCaption}>
-              Minh hoạ: Pipeline kéo thả, điểm phù hợp ứng viên và trạng thái email trong JobTracker ATS.
-            </p>
           </div>
         </section>
 
@@ -165,14 +121,14 @@ export function LandingPage() {
             </article>
 
             <article className={styles.landingPage__featureCard}>
-              <div className={styles.landingPage__featureBadge}>2. Pipeline kéo thả</div>
-              <h3 className={styles.landingPage__featureTitle}>Nhìn rõ từng bước tuyển dụng</h3>
+              <div className={styles.landingPage__featureBadge}>2. Quản lý trạng thái ứng viên</div>
+              <h3 className={styles.landingPage__featureTitle}>Theo dõi tiến độ tuyển dụng rõ ràng</h3>
               <p className={styles.landingPage__featureText}>
-                Ứng viên đi qua các bước: Nhận CV → Sàng lọc → Phỏng vấn → Offer → Trúng tuyển / Từ
-                chối. HR chỉ cần kéo thả giữa các cột.
+                Ứng viên đi qua các bước: Nhận CV → Sàng lọc → Phỏng vấn → Offer → Trúng tuyển /
+                Từ chối. HR thao tác nhanh trực tiếp từ danh sách.
               </p>
               <ul className={styles.landingPage__featureList}>
-                <li>Kéo thả giữa các bước trong pipeline</li>
+                <li>Chuyển trạng thái trực tiếp theo từng ứng viên</li>
                 <li>Lịch sử di chuyển trạng thái ứng viên rõ ràng</li>
                 <li>Quick actions: Đặt lịch phỏng vấn, Gửi offer, Từ chối</li>
               </ul>
@@ -230,9 +186,9 @@ export function LandingPage() {
             <li className={styles.landingPage__workflowItem}>
               <div className={styles.landingPage__workflowStepNumber}>4</div>
               <div>
-                <div className={styles.landingPage__workflowContentTitle}>Kéo thả pipeline</div>
+                <div className={styles.landingPage__workflowContentTitle}>Cập nhật trạng thái</div>
                 <p className={styles.landingPage__workflowContentText}>
-                  Chuyển ứng viên qua Screening, Interview, Offer…
+                  Chuyển ứng viên qua Screening, Interview, Offer...
                 </p>
               </div>
             </li>

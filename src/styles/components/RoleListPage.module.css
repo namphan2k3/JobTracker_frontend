@@ -1,4 +1,6 @@
 .roleListPage {
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .roleListPage__header {
@@ -64,6 +66,7 @@
 
 .roleListPage__table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
 }
 
@@ -248,4 +251,11 @@
 .roleListPage__emptyPerms {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
+}
+
+@media (max-width: 767px) {
+  .roleListPage { padding: var(--spacing-md); }
+  .roleListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .roleListPage__table th,
+  .roleListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
 }

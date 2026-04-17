@@ -1,3 +1,8 @@
+.adminUserListPage {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
 .adminUserListPage__header {
   display: flex;
   justify-content: space-between;
@@ -99,6 +104,7 @@
 
 .adminUserListPage__table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
 }
 
@@ -149,4 +155,12 @@
 .adminUserListPage__pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .adminUserListPage { padding: var(--spacing-md); }
+  .adminUserListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .adminUserListPage__table th,
+  .adminUserListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
+  .adminUserListPage__pagination { flex-wrap: wrap; justify-content: center; }
 }

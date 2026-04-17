@@ -1,4 +1,6 @@
 .adminApplicationStatusListPage {
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .adminApplicationStatusListPage__header {
@@ -68,6 +70,7 @@
 
 .adminApplicationStatusListPage__table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
 }
 
@@ -261,4 +264,11 @@
 
 .adminApplicationStatusListPage__checkboxLabel input {
   width: auto;
+}
+
+@media (max-width: 767px) {
+  .adminApplicationStatusListPage { padding: var(--spacing-md); }
+  .adminApplicationStatusListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .adminApplicationStatusListPage__table th,
+  .adminApplicationStatusListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
 }

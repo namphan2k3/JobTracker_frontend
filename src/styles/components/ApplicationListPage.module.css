@@ -1,5 +1,7 @@
 .applicationListPage {
   padding: var(--spacing-lg);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 /* Header */
@@ -290,6 +292,7 @@
 
 .applicationListPage__table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
 }
 
@@ -689,6 +692,29 @@
   font-size: var(--font-size-sm);
 }
 
+.applicationListPage__modalActions .applicationListPage__quickStatusButton {
+  color: var(--color-text);
+  background: #fff;
+  border-color: var(--color-border);
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButton:hover:not(:disabled) {
+  color: var(--color-text);
+  background: var(--color-bg-muted, #f9fafb);
+  border-color: var(--color-border);
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButtonDanger {
+  color: var(--color-error);
+  background: var(--color-error-muted, #fef2f2);
+}
+
+.applicationListPage__modalActions .applicationListPage__quickStatusButtonDanger:hover:not(:disabled) {
+  color: var(--color-error);
+  background: var(--color-error-muted, #fef2f2);
+  border-color: var(--color-error);
+}
+
 .applicationListPage__modalHint {
   margin-top: var(--spacing-xs);
   font-size: var(--font-size-xs);
@@ -787,4 +813,103 @@
   color: var(--color-text-secondary, #6b7280);
   font-size: var(--font-size-sm, 13px);
   margin: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+  .applicationListPage {
+    padding: var(--spacing-md);
+  }
+
+  .applicationListPage__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .applicationListPage__title {
+    font-size: var(--font-size-xl, 20px);
+  }
+
+  .applicationListPage__jobList {
+    grid-template-columns: 1fr;
+  }
+
+  .applicationListPage__jobBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .applicationListPage__jobBannerTitle {
+    font-size: var(--font-size-base, 15px);
+  }
+
+  .applicationListPage__filterBar {
+    flex-direction: column;
+  }
+
+  .applicationListPage__searchInput,
+  .applicationListPage__filterSelect {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .applicationListPage__table th,
+  .applicationListPage__table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .applicationListPage__email {
+    display: none;
+  }
+
+  .applicationListPage__bulkBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .applicationListPage__bulkActions {
+    width: 100%;
+  }
+
+  .applicationListPage__bulkActions button {
+    width: 100%;
+  }
+
+  .applicationListPage__pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+
+  .applicationListPage__modalBackdrop .applicationListPage__modal {
+    width: 95vw;
+    padding: var(--spacing-md);
+  }
+
+  .applicationListPage__templatePreview {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .applicationListPage__tabs {
+    gap: 0;
+  }
+
+  .applicationListPage__tab {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .applicationListPage__quickStatusButton,
+  .applicationListPage__quickStatusButtonDanger {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs, 11px);
+  }
 }

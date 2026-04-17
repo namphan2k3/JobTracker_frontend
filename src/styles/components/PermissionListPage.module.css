@@ -1,4 +1,6 @@
 .permissionListPage {
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .permissionListPage__required {
@@ -68,6 +70,7 @@
 
 .permissionListPage__table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
 }
 
@@ -211,4 +214,11 @@
 
 .permissionListPage__checkboxLabel input {
   width: auto;
+}
+
+@media (max-width: 767px) {
+  .permissionListPage { padding: var(--spacing-md); }
+  .permissionListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .permissionListPage__table th,
+  .permissionListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
 }

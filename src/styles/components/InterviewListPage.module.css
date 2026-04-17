@@ -1,5 +1,7 @@
 .interviewListPage {
   padding: var(--spacing-lg);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .interviewListPage__header {
@@ -76,6 +78,7 @@
 
 .interviewListPage__table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
 }
 
@@ -180,5 +183,51 @@
 
 .interviewListPage__modalSubmit:hover:not(:disabled) {
   background: var(--color-primary-hover);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+  .interviewListPage {
+    padding: var(--spacing-md);
+  }
+
+  .interviewListPage__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .interviewListPage__title {
+    font-size: var(--font-size-xl, 20px);
+  }
+
+  .interviewListPage__filterBar {
+    flex-direction: column;
+  }
+
+  .interviewListPage__filterSelect {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .interviewListPage__dateInput {
+    width: 100%;
+  }
+
+  .interviewListPage__searchButton {
+    width: 100%;
+  }
+
+  .interviewListPage__table th,
+  .interviewListPage__table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .interviewListPage__pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 

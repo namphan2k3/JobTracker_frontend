@@ -1,4 +1,6 @@
 .adminSubscriptionHistoryPage {
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .adminSubscriptionHistoryPage__header {
@@ -42,6 +44,7 @@
 
 .adminSubscriptionHistoryPage__table {
   width: 100%;
+  min-width: 550px;
   border-collapse: collapse;
 }
 

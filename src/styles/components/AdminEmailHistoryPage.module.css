@@ -1,4 +1,4 @@
-.adminEmailHistoryPage { }
+.adminEmailHistoryPage { min-width: 0; overflow-x: hidden; }
 .adminEmailHistoryPage__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); }
 .adminEmailHistoryPage__title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-text); }
 .adminEmailHistoryPage__actions { display: flex; gap: var(--spacing-md); }
@@ -16,7 +16,7 @@
 .adminEmailHistoryPage__error { padding: var(--spacing-md); background: var(--color-error-muted); color: var(--color-error); margin-bottom: var(--spacing-lg); border-radius: var(--radius-md); }
 .adminEmailHistoryPage__loading { color: var(--color-text-muted); }
 .adminEmailHistoryPage__tableWrap { overflow-x: auto; }
-.adminEmailHistoryPage__table { width: 100%; border-collapse: collapse; }
+.adminEmailHistoryPage__table { width: 100%; min-width: 600px; border-collapse: collapse; }
 .adminEmailHistoryPage__table th, .adminEmailHistoryPage__table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
 .adminEmailHistoryPage__table th { font-weight: var(--font-weight-medium); color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .adminEmailHistoryPage__subjectCell { max-width: 14rem; }

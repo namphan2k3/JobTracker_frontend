@@ -1,5 +1,7 @@
 .jobListPage {
   padding: var(--spacing-lg);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .jobListPage__header {
@@ -78,6 +80,7 @@
 
 .jobListPage__table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
 }
 
@@ -152,4 +155,16 @@
 .jobListPage__pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .jobListPage { padding: var(--spacing-md); }
+  .jobListPage__header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+  .jobListPage__filterBar { flex-direction: column; }
+  .jobListPage__filterBar input,
+  .jobListPage__filterBar select,
+  .jobListPage__filterBar button { width: 100%; }
+  .jobListPage__table th,
+  .jobListPage__table td { padding: var(--spacing-xs) var(--spacing-sm); font-size: var(--font-size-xs, 12px); }
+  .jobListPage__pagination { flex-wrap: wrap; justify-content: center; }
 }

@@ -272,3 +272,14 @@
 .jobDetailPage__skillSuggestionItem:hover {
   border-color: var(--color-primary);
 }
+
+@media (max-width: 767px) {
+  .jobDetailPage { padding: var(--spacing-md); }
+  .jobDetailPage__header { margin-bottom: var(--spacing-md); }
+  .jobDetailPage__title { font-size: var(--font-size-xl, 20px); }
+  .jobDetailPage__actions { flex-wrap: wrap; gap: var(--spacing-xs); }
+  .jobDetailPage__actions button { flex: 1; min-width: 0; font-size: var(--font-size-xs, 12px); }
+  .jobDetailPage__grid { max-width: 100%; }
+  .jobDetailPage__footer { flex-direction: column; }
+  .jobDetailPage__footer a { width: 100%; text-align: center; }
+}
