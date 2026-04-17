@@ -31,6 +31,7 @@ import { getUsers } from '../../../api/adminUsers';
 import { useAuthStore } from '../../../store/authStore';
 import { usePermissions } from '../../../hooks/usePermissions';
 import { Drawer } from '../../../components/Drawer';
+import { ConfirmModal } from '../../../components/ConfirmModal';
 import styles from '../../../styles/components/ApplicationDetailPage.module.css';
 
 const STATUS_ORDER = {
@@ -115,6 +116,8 @@ export function ApplicationDetailPage() {
   const [templateDetailLoading, setTemplateDetailLoading] = useState(false);
   const [interviewSendEmail, setInterviewSendEmail] = useState(false);
   const [interviewEmailMessage, setInterviewEmailMessage] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState({ open: false, type: null, id: null });
+  const [confirmDeleting, setConfirmDeleting] = useState(false);
   const currentUser = useAuthStore((s) => s.user);
   const { hasPermission } = usePermissions();
 
@@ -560,10 +563,7 @@ export function ApplicationDetailPage() {
   };
 
   const handleDelete = () => {
-    if (!window.confirm('Bạn có chắc muốn xóa ứng tuyển này?')) return;
-    deleteApplication(id)
-      .then(() => navigate('/app/applications'))
-      .catch((err) => setError(err.response?.data?.message || err.message || 'Xóa thất bại'));
+    setConfirmDelete({ open: true, type: 'application', id });
   };
 
   const handleAddComment = (e) => {
@@ -575,7 +575,12 @@ export function ApplicationDetailPage() {
       isInternal: commentForm.isInternal,
     })
       .then(() => {
+        // Nếu đang ở trang 1 (page=0) thì force reload ngay để comment mới hiện tức thì
+        if (commentsPage === 0) {
+          return fetchComments(0);
+        }
         setCommentsPage(0);
+        return Promise.resolve();
       })
       .then(() => setCommentForm({ commentText: '', isInternal: true }))
       .catch((err) => setError(err.response?.data?.message || err.message || 'Thêm comment thất bại'));
@@ -598,11 +603,7 @@ export function ApplicationDetailPage() {
   };
 
   const handleDeleteComment = (commentId) => {
-    if (!window.confirm('Xóa comment này?')) return;
-    setError('');
-    deleteComment(id, commentId)
-      .then(() => fetchComments(commentsPage))
-      .catch((err) => setError(err.response?.data?.message || err.message || 'Xóa comment thất bại'));
+    setConfirmDelete({ open: true, type: 'comment', id: commentId });
   };
 
   const handleCreateInterview = (e) => {
@@ -739,12 +740,41 @@ export function ApplicationDetailPage() {
   };
 
   const handleDeleteAttachment = (attachmentId) => {
-    if (!window.confirm('Xóa file này?')) return;
+    setConfirmDelete({ open: true, type: 'attachment', id: attachmentId });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!confirmDelete.type) return;
+    setConfirmDeleting(true);
     setError('');
-    deleteAttachment(attachmentId)
-      .then(() => getApplicationAttachments(id))
-      .then(setAttachments)
-      .catch((err) => setError(err.message || 'Xóa thất bại'));
+    try {
+      if (confirmDelete.type === 'application') {
+        await deleteApplication(id);
+        navigate('/app/applications');
+        return;
+      }
+
+      if (confirmDelete.type === 'comment') {
+        await deleteComment(id, confirmDelete.id);
+        await fetchComments(commentsPage);
+      }
+
+      if (confirmDelete.type === 'attachment') {
+        await deleteAttachment(confirmDelete.id);
+        const files = await getApplicationAttachments(id);
+        setAttachments(files);
+      }
+
+      setConfirmDelete({ open: false, type: null, id: null });
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          (confirmDelete.type === 'comment' ? 'Xóa comment thất bại' : 'Xóa thất bại')
+      );
+    } finally {
+      setConfirmDeleting(false);
+    }
   };
 
   const formatFileSize = (bytes) => {
@@ -763,6 +793,20 @@ export function ApplicationDetailPage() {
         <h1 className={styles.applicationDetailPage__title}>
           {app.candidateName} – {app.jobTitle || app.jobId}
         </h1>
+        <div className={styles.applicationDetailPage__headerMeta}>
+          <span
+            className={styles.applicationDetailPage__statusBadge}
+            style={{ '--status-color': app.status?.color || '#6b7280' }}
+          >
+            {app.status?.displayName || app.status?.name || '-'}
+          </span>
+          <span className={styles.applicationDetailPage__metaChip}>
+            Phụ trách: {app.assignedToName || 'Chưa gán'}
+          </span>
+          <span className={styles.applicationDetailPage__metaChip}>
+            Ứng tuyển: {app.appliedDate || '-'}
+          </span>
+        </div>
       </header>
 
       {error && (
@@ -777,7 +821,10 @@ export function ApplicationDetailPage() {
       )}
 
       <div className={styles.applicationDetailPage__grid}>
-        <section id="application-status-section" className={styles.applicationDetailPage__section}>
+        <section
+          id="application-status-section"
+          className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}
+        >
           <h2>Thông tin ứng viên</h2>
           <dl>
             <dt>Tên</dt>
@@ -808,10 +855,13 @@ export function ApplicationDetailPage() {
           </dl>
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}>
           <h2>Trạng thái & Gán</h2>
           {hasPermission('APPLICATION_UPDATE') && (
-          <form onSubmit={handleStatusChange} className={styles.applicationDetailPage__form}>
+          <form
+            onSubmit={handleStatusChange}
+            className={`${styles.applicationDetailPage__form} ${styles.applicationDetailPage__statusForm}`}
+          >
             <fieldset disabled={isCurrentTerminal || sendingEmail} className={styles.applicationDetailPage__fieldset}>
               <select
                 value={statusForm.statusId}
@@ -1206,7 +1256,10 @@ export function ApplicationDetailPage() {
           )}
 
           {hasPermission('APPLICATION_UPDATE') && (
-          <form onSubmit={handleAssign} className={styles.applicationDetailPage__form}>
+          <form
+            onSubmit={handleAssign}
+            className={`${styles.applicationDetailPage__form} ${styles.applicationDetailPage__assignForm}`}
+          >
             <select
               value={assignForm.assignedTo}
               onChange={(e) => setAssignForm((f) => ({ ...f, assignedTo: e.target.value }))}
@@ -1222,21 +1275,11 @@ export function ApplicationDetailPage() {
           </form>
           )}
 
-          <p>
-            <strong>Trạng thái hiện tại:</strong>{' '}
-            <span
-              className={styles.applicationDetailPage__statusBadge}
-              style={{ '--status-color': app.status?.color || '#6b7280' }}
-            >
-              {app.status?.displayName || app.status?.name || '-'}
-            </span>
-          </p>
-          <p>
-            <strong>Người phụ trách:</strong> {app.assignedToName || 'Chưa gán'}
-          </p>
+          <p><strong>Trạng thái hiện tại:</strong> {app.status?.displayName || app.status?.name || '-'}</p>
+          <p><strong>Người phụ trách:</strong> {app.assignedToName || 'Chưa gán'}</p>
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionFull}`}>
           <h2>Match Score</h2>
           {app.matchScore != null ? (
             <div className={styles.applicationDetailPage__scoreCard}>
@@ -1296,7 +1339,7 @@ export function ApplicationDetailPage() {
           )}
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}>
           <h2>Chi tiết</h2>
           <p><strong>Cover letter:</strong> {app.coverLetter || '-'}</p>
           <p><strong>Ghi chú:</strong> {app.notes || '-'}</p>
@@ -1313,7 +1356,7 @@ export function ApplicationDetailPage() {
           )}
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}>
           <h2>Tài liệu đính kèm</h2>
           {hasPermission('ATTACHMENT_CREATE') && (
             <form onSubmit={handleUploadAttachment} className={styles.applicationDetailPage__attachmentForm}>
@@ -1407,7 +1450,7 @@ export function ApplicationDetailPage() {
           {attachments.length === 0 && <p className={styles.applicationDetailPage__empty}>Chưa có tài liệu</p>}
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionFull}`}>
           <h2>Bình luận</h2>
           {hasPermission('COMMENT_CREATE') && (
           <form onSubmit={handleAddComment} className={styles.applicationDetailPage__commentForm}>
@@ -1488,7 +1531,7 @@ export function ApplicationDetailPage() {
           )}
         </section>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}>
           <h2>Phỏng vấn</h2>
           {hasPermission('INTERVIEW_CREATE') && (
           <button
@@ -1786,7 +1829,7 @@ export function ApplicationDetailPage() {
           </form>
         </Drawer>
 
-        <section className={styles.applicationDetailPage__section}>
+        <section className={`${styles.applicationDetailPage__section} ${styles.applicationDetailPage__sectionHalf}`}>
           <h2>Lịch sử trạng thái</h2>
           <ul className={styles.applicationDetailPage__historyList}>
             {history.map((h, i) => (
@@ -1815,6 +1858,30 @@ export function ApplicationDetailPage() {
         </button>
       </footer>
       )}
+
+      <ConfirmModal
+        open={confirmDelete.open}
+        onClose={() => !confirmDeleting && setConfirmDelete({ open: false, type: null, id: null })}
+        onConfirm={handleConfirmDelete}
+        title={
+          confirmDelete.type === 'application'
+            ? 'Xác nhận xóa ứng tuyển'
+            : confirmDelete.type === 'comment'
+              ? 'Xác nhận xóa bình luận'
+              : 'Xác nhận xóa tệp'
+        }
+        message={
+          confirmDelete.type === 'application'
+            ? 'Bạn có chắc chắn muốn xóa ứng tuyển này? Hành động này không thể hoàn tác.'
+            : confirmDelete.type === 'comment'
+              ? 'Bạn có chắc chắn muốn xóa bình luận này?'
+              : 'Bạn có chắc chắn muốn xóa tệp đính kèm này?'
+        }
+        confirmText="Xóa"
+        cancelText="Hủy"
+        variant="danger"
+        loading={confirmDeleting}
+      />
     </div>
   );
 }

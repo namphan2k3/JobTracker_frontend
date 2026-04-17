@@ -689,6 +689,8 @@ export function ApplicationListPage() {
                 {applications.map((app) => {
                   const nextStatus = findNextStatusForApp(app, statuses);
                   const nextType = nextStatus ? getStatusType(nextStatus) : '';
+                  const currentType = getStatusTypeForApp(app, statuses);
+                  const isTerminalStatus = currentType === 'HIRED' || currentType === 'REJECTED';
                   let nextLabel = 'Sang trạng thái tiếp theo';
                   if (nextType === 'SCREENING') nextLabel = 'Đưa sang Screening';
                   else if (nextType === 'INTERVIEW') nextLabel = 'Đặt lịch phỏng vấn';
@@ -824,7 +826,7 @@ export function ApplicationListPage() {
                                   Hired
                                 </button>
                               )}
-                              {canQuickUpdate && rejectStatus && (
+                              {canQuickUpdate && rejectStatus && !isTerminalStatus && (
                                 <button
                                   type="button"
                                   className={styles.applicationListPage__quickStatusButtonDanger}

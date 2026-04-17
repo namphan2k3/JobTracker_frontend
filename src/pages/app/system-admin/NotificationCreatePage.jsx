@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createNotification } from '../../../api/notifications';
+import { getUsers } from '../../../api/adminUsers';
+import { getCompanies } from '../../../api/companies';
+import { getJobs } from '../../../api/jobs';
+import { getApplications } from '../../../api/applications';
 import styles from '../../../styles/components/NotificationCreatePage.module.css';
 
 const NOTIFICATION_TYPES = [
@@ -28,6 +32,41 @@ export function NotificationCreatePage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loadingOptions, setLoadingOptions] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    setLoadingOptions(true);
+    Promise.all([
+      getUsers({ size: 100 }),
+      getCompanies({ size: 100 }),
+      getJobs({ size: 100 }),
+      getApplications({ size: 100 }),
+    ])
+      .then(([usersRes, companiesRes, jobsRes, applicationsRes]) => {
+        setUsers(usersRes.users || []);
+        setCompanies(companiesRes.companies || []);
+        setJobs(jobsRes.jobs || []);
+        setApplications(applicationsRes.applications || []);
+      })
+      .catch(() => {
+        setError('Không tải được dữ liệu chọn. Vui lòng thử lại.');
+      })
+      .finally(() => setLoadingOptions(false));
+  }, []);
+
+  const sortedUsers = useMemo(
+    () =>
+      [...users].sort((a, b) => {
+        const aName = `${a.firstName || ''} ${a.lastName || ''}`.trim().toLowerCase();
+        const bName = `${b.firstName || ''} ${b.lastName || ''}`.trim().toLowerCase();
+        return aName.localeCompare(bName);
+      }),
+    [users]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,36 +116,63 @@ export function NotificationCreatePage() {
       )}
 
       <form onSubmit={handleSubmit} className={styles.notificationCreatePage__form}>
-        <label>User ID *</label>
-        <input
-          type="text"
+        <label>User nhận thông báo *</label>
+        <select
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-          placeholder="UUID của user nhận thông báo"
           required
-        />
-        <label>Company ID *</label>
-        <input
-          type="text"
+          disabled={loadingOptions}
+        >
+          <option value="">{loadingOptions ? 'Đang tải users...' : 'Chọn user'}</option>
+          {sortedUsers.map((u) => (
+            <option key={u.id} value={u.id}>
+              {`${u.firstName || ''} ${u.lastName || ''}`.trim() || u.email} ({u.email})
+            </option>
+          ))}
+        </select>
+
+        <label>Company *</label>
+        <select
           value={companyId}
           onChange={(e) => setCompanyId(e.target.value)}
-          placeholder="UUID của company"
           required
-        />
-        <label>Job ID (tùy chọn)</label>
-        <input
-          type="text"
+          disabled={loadingOptions}
+        >
+          <option value="">{loadingOptions ? 'Đang tải companies...' : 'Chọn company'}</option>
+          {companies.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name || c.companyName || c.id}
+            </option>
+          ))}
+        </select>
+
+        <label>Job (tùy chọn)</label>
+        <select
           value={jobId}
           onChange={(e) => setJobId(e.target.value)}
-          placeholder="UUID của job"
-        />
-        <label>Application ID (tùy chọn)</label>
-        <input
-          type="text"
+          disabled={loadingOptions}
+        >
+          <option value="">Không chọn</option>
+          {jobs.map((j) => (
+            <option key={j.id} value={j.id}>
+              {j.title || j.position || j.id}
+            </option>
+          ))}
+        </select>
+
+        <label>Application (tùy chọn)</label>
+        <select
           value={applicationId}
           onChange={(e) => setApplicationId(e.target.value)}
-          placeholder="UUID của application"
-        />
+          disabled={loadingOptions}
+        >
+          <option value="">Không chọn</option>
+          {applications.map((a) => (
+            <option key={a.id} value={a.id}>
+              {(a.candidateName || 'Ứng viên') + ' - ' + (a.jobTitle || a.jobId || 'N/A')}
+            </option>
+          ))}
+        </select>
         <label>Loại thông báo</label>
         <select value={type} onChange={(e) => setType(e.target.value)}>
           {NOTIFICATION_TYPES.map((t) => (
@@ -142,7 +208,7 @@ export function NotificationCreatePage() {
           onChange={(e) => setScheduledAt(e.target.value)}
         />
         <div className={styles.notificationCreatePage__formActions}>
-          <button type="submit" disabled={submitting}>
+          <button type="submit" disabled={submitting || loadingOptions}>
             {submitting ? 'Đang tạo...' : 'Tạo thông báo'}
           </button>
           <Link to="/app/system-admin/companies" className={styles.notificationCreatePage__cancelLink}>

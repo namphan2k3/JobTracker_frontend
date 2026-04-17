@@ -2,10 +2,16 @@
   padding: var(--spacing-lg);
   min-width: 0;
   overflow-x: hidden;
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.05), transparent 40%);
 }
 
 .applicationDetailPage__header {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl, 18px);
+  background: var(--color-bg-elevated, #fff);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
 }
 
 .applicationDetailPage__backLink {
@@ -24,6 +30,24 @@
   font-weight: var(--font-weight-semibold);
   margin: 0;
   color: var(--color-text);
+}
+
+.applicationDetailPage__headerMeta {
+  margin-top: var(--spacing-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.applicationDetailPage__metaChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
 }
 
 .applicationDetailPage__error {
@@ -49,20 +73,32 @@
 
 .applicationDetailPage__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  max-width: 56rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-md);
+  max-width: 80rem;
 }
 
 .applicationDetailPage__section {
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated, #fff);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.applicationDetailPage__sectionHalf {
+  grid-column: span 6;
+}
+
+.applicationDetailPage__sectionFull {
+  grid-column: 1 / -1;
 }
 
 .applicationDetailPage__section h2 {
   font-size: var(--font-size-lg);
   margin: 0 0 var(--spacing-md);
   color: var(--color-text);
+  letter-spacing: -0.01em;
 }
 
 .applicationDetailPage__section dl {
@@ -91,8 +127,39 @@
 .applicationDetailPage__form {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   margin-bottom: var(--spacing-md);
+}
+
+.applicationDetailPage__statusForm {
+  align-items: flex-start;
+}
+
+.applicationDetailPage__statusForm .applicationDetailPage__fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.applicationDetailPage__statusForm select,
+.applicationDetailPage__statusForm input[type="text"] {
+  min-width: 220px;
+  flex: 1 1 240px;
+}
+
+.applicationDetailPage__statusForm button {
+  margin-top: var(--spacing-xs);
+  align-self: flex-start;
+}
+
+.applicationDetailPage__assignForm {
+  align-items: center;
+}
+
+.applicationDetailPage__assignForm select {
+  min-width: 260px;
 }
 
 .applicationDetailPage__statusEmailSection {
@@ -140,11 +207,13 @@
 
 .applicationDetailPage__statusBadge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  border-radius: 999px;
   background: color-mix(in srgb, var(--status-color, #6b7280) 20%, transparent);
   color: var(--status-color, #6b7280);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border: 1px solid color-mix(in srgb, var(--status-color, #6b7280) 38%, transparent);
 }
 
 .applicationDetailPage__scoreCard {
@@ -622,6 +691,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin-bottom: var(--spacing-xs);
+  background: var(--color-bg);
 }
 
 .applicationDetailPage__attachmentName {
@@ -805,9 +875,7 @@
   }
 
   .applicationDetailPage__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
   }
 
   .applicationDetailPage__title {
@@ -816,6 +884,16 @@
 
   .applicationDetailPage__grid {
     max-width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .applicationDetailPage__sectionHalf,
+  .applicationDetailPage__sectionFull {
+    grid-column: auto;
+  }
+
+  .applicationDetailPage__section {
+    padding: var(--spacing-md);
   }
 
   .applicationDetailPage__scoreHeader {
@@ -838,6 +916,11 @@
   .applicationDetailPage__form select,
   .applicationDetailPage__form input,
   .applicationDetailPage__form textarea {
+    width: 100%;
+  }
+
+  .applicationDetailPage__statusForm button {
+    margin-top: 0;
     width: 100%;
   }
 

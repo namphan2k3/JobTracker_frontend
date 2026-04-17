@@ -128,7 +128,12 @@ export function ProfilePage() {
 
   return (
     <div className={styles.profilePage}>
-      <h1 className={styles.profilePage__title}>Hồ sơ cá nhân</h1>
+      <div className={styles.profilePage__hero}>
+        <h1 className={styles.profilePage__title}>Hồ sơ cá nhân</h1>
+        <p className={styles.profilePage__subtitle}>
+          Quản lý thông tin tài khoản, avatar và bảo mật đăng nhập.
+        </p>
+      </div>
       {success && (
         <div className={styles.profilePage__success}>Đã cập nhật.</div>
       )}
@@ -137,13 +142,21 @@ export function ProfilePage() {
       )}
 
       <div className={styles.profilePage__card}>
-        <div className={styles.profilePage__avatarSection}>
-          <div className={styles.profilePage__avatar}>
-            {profile.avatarUrl ? (
-              <img src={profile.avatarUrl} alt="Avatar" />
-            ) : (
-              <span>{profile.firstName?.[0] || profile.email?.[0] || '?'}</span>
-            )}
+        <div className={styles.profilePage__cardTop}>
+          <div className={styles.profilePage__avatarSection}>
+            <div className={styles.profilePage__avatar}>
+              {profile.avatarUrl ? (
+                <img src={profile.avatarUrl} alt="Avatar" />
+              ) : (
+                <span>{profile.firstName?.[0] || profile.email?.[0] || '?'}</span>
+              )}
+            </div>
+            <div className={styles.profilePage__identity}>
+              <h2 className={styles.profilePage__name}>
+                {`${profile.lastName || ''} ${profile.firstName || ''}`.trim() || 'Chưa cập nhật tên'}
+              </h2>
+              <p className={styles.profilePage__email}>{profile.email}</p>
+            </div>
           </div>
           <label className={styles.profilePage__avatarLabel}>
             <input
@@ -155,10 +168,26 @@ export function ProfilePage() {
             Đổi avatar
           </label>
         </div>
-        <p><strong>Email:</strong> {profile.email}</p>
-        <p><strong>Họ:</strong> {profile.lastName}</p>
-        <p><strong>Tên:</strong> {profile.firstName}</p>
-        <p><strong>Số điện thoại:</strong> {profile.phone || '-'}</p>
+
+        <div className={styles.profilePage__infoGrid}>
+          <div className={styles.profilePage__infoItem}>
+            <span className={styles.profilePage__infoLabel}>Email</span>
+            <span className={styles.profilePage__infoValue}>{profile.email}</span>
+          </div>
+          <div className={styles.profilePage__infoItem}>
+            <span className={styles.profilePage__infoLabel}>Họ</span>
+            <span className={styles.profilePage__infoValue}>{profile.lastName || '-'}</span>
+          </div>
+          <div className={styles.profilePage__infoItem}>
+            <span className={styles.profilePage__infoLabel}>Tên</span>
+            <span className={styles.profilePage__infoValue}>{profile.firstName || '-'}</span>
+          </div>
+          <div className={styles.profilePage__infoItem}>
+            <span className={styles.profilePage__infoLabel}>Số điện thoại</span>
+            <span className={styles.profilePage__infoValue}>{profile.phone || '-'}</span>
+          </div>
+        </div>
+
         <div className={styles.profilePage__actions}>
           <button
             type="button"
