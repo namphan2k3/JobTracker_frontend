@@ -535,7 +535,7 @@ export function ApplicationListPage() {
         <div className={styles.applicationListPage__jobList}>
           {bootstrapping && (
             <p className={styles.applicationListPage__loadingCard}>
-              Dang dong bo du lieu job va trang thai ung vien...
+              Đang đồng bộ dữ liệu job và trạng thái ứng viên...
             </p>
           )}
           {!bootstrapping && jobs.map((j) => (
@@ -650,7 +650,7 @@ export function ApplicationListPage() {
 
           {loading ? (
             <p className={styles.applicationListPage__loading}>
-              Dang tai danh sach ung vien, vui long doi trong giay lat...
+              Đang tải danh sách ứng viên, vui lòng đợi trong giây lát...
             </p>
           ) : (
         <>
