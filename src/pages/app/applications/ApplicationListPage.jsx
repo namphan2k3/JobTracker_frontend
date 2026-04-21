@@ -80,7 +80,8 @@ export function ApplicationListPage() {
   const [statuses, setStatuses] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [bootstrapping, setBootstrapping] = useState(true);
   const [error, setError] = useState('');
   const [updatingId, setUpdatingId] = useState(null);
   const [bulkUpdating, setBulkUpdating] = useState(false);
@@ -132,6 +133,7 @@ export function ApplicationListPage() {
 
   useEffect(() => {
     setEmailTemplatesLoading(true);
+    setBootstrapping(true);
     Promise.all([
       getApplicationStatuses(),
       getJobs({ size: 100 }),
@@ -145,7 +147,10 @@ export function ApplicationListPage() {
         setEmailTemplates(templates);
       })
       .catch(() => {})
-      .finally(() => setEmailTemplatesLoading(false));
+      .finally(() => {
+        setEmailTemplatesLoading(false);
+        setBootstrapping(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -528,7 +533,12 @@ export function ApplicationListPage() {
       <div className={styles.applicationListPage__jobSelector}>
         <label className={styles.applicationListPage__jobSelectorLabel}>Chọn job để xem ứng tuyển</label>
         <div className={styles.applicationListPage__jobList}>
-          {jobs.map((j) => (
+          {bootstrapping && (
+            <p className={styles.applicationListPage__loadingCard}>
+              Dang dong bo du lieu job va trang thai ung vien...
+            </p>
+          )}
+          {!bootstrapping && jobs.map((j) => (
             <button
               key={j.id}
               type="button"
@@ -546,7 +556,7 @@ export function ApplicationListPage() {
               )}
             </button>
           ))}
-          {jobs.length === 0 && !loading && (
+          {jobs.length === 0 && !loading && !bootstrapping && (
             <p className={styles.applicationListPage__jobEmpty}>Chưa có job nào.</p>
           )}
         </div>
@@ -639,7 +649,9 @@ export function ApplicationListPage() {
           )}
 
           {loading ? (
-            <p className={styles.applicationListPage__loading}>Đang tải...</p>
+            <p className={styles.applicationListPage__loading}>
+              Dang tai danh sach ung vien, vui long doi trong giay lat...
+            </p>
           ) : (
         <>
           {selectedApplications.length > 0 && canQuickUpdate && (

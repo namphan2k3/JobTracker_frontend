@@ -281,6 +281,16 @@
   padding: var(--spacing-2xl) 0;
 }
 
+.applicationListPage__loadingCard {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-lg);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted, #f9fafb);
+}
+
 /* Table */
 .applicationListPage__tableWrap {
   overflow-x: auto;
